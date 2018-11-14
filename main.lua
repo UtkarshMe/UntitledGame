@@ -6,8 +6,8 @@ function love.load()
 
     local props = {
         screen = {
-            width = 1024,  -- TODO: this should not be hard-coded
-            height = 768
+            width = 800,   -- TODO: this should not be hard-coded
+            height = 600
         }
     }
     -- components should only be initialized after screen size is defined
