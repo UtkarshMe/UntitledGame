@@ -26,6 +26,7 @@ end
 
 function Background:update()
     -- TODO
+    return self
 end
 
 

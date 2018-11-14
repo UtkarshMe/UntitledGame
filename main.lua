@@ -1,3 +1,4 @@
+local total_time, components
 
 -- Function to initialize game state
 -- Put config parsing, state initialization etc. here
@@ -13,6 +14,8 @@ function love.load()
     -- components should only be initialized after screen size is defined
     -- because screen size is required to properly load them
     components:init(props)
+
+    total_time = 0
 end
 
 -- Function to render the game screen
@@ -26,4 +29,5 @@ end
 -- Function to manipulate game state at each frame
 -- Put game strategy here
 function love.update(time_since_update)
+    total_time = total_time + time_since_update
 end

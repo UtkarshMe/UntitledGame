@@ -19,6 +19,7 @@ end
 
 function Console:update()
     -- TODO
+    return self
 end
 
 
