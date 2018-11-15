@@ -1,7 +1,7 @@
 -- components/components.lua : Module to initialize components
 
-local Background = require('components/Background')
-local Console = require('components/Console')
+local Background = require('components.Background')
+local Console = require('components.Console')
 
 local Components = {}
 

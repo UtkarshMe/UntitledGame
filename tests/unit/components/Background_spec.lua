@@ -1,4 +1,4 @@
-local Background = require('components/Background')
+local Background = require('components.Background')
 
 describe('Background', function()
 

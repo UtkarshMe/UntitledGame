@@ -1,4 +1,4 @@
-local Console = require('components/Console')
+local Console = require('components.Console')
 
 describe('Console', function()
 

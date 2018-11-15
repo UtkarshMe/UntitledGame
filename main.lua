@@ -3,7 +3,7 @@ local total_time, components
 -- Function to initialize game state
 -- Put config parsing, state initialization etc. here
 function love.load()
-    components = require('components/components')
+    components = require('components.components')
 
     local props = {
         screen = {
