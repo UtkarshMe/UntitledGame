@@ -10,8 +10,8 @@ function Console:new(width, height)
     local newObj = {
         size = { width = width, height = height },
         canvas = love.graphics.newCanvas(),
+        value = [[ loop forward endloop ]],
     }
-    -- TODO
 
     self.__index = self
     return setmetatable(newObj, self)

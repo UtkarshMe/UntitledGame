@@ -1,7 +1,7 @@
 PROJECT_NAME    = UntitledGame
 SOURCES         = main.lua conf.lua
 
-.PHONY: all run love lint package
+.PHONY: all run love lint package test
 
 all:
 
@@ -13,6 +13,14 @@ love: run
 
 lint:
 	luacheck .
+
+test: unittest functionaltest
+
+unittest:
+	busted --run unittest --output gtest
+
+functionaltest:
+	#busted --run functionaltest --output gtest
 
 package:
 	zip -9 -r ${PROJECT_NAME}.love ${SOURCES}

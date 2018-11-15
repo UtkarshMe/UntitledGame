@@ -2,7 +2,8 @@ sudo: true
 
 install:
     - sudo apt-get install -y love luarocks
-    - sudo luarocks install luacheck
+    - sudo luarocks install luacheck busted luacov
 
 script:
     - make lint
+    - make test
