@@ -11,3 +11,7 @@ script:
     - make lint
     - make unittest
     - make functionaltest
+
+after_success:
+    - luacov
+    - bash <(curl -s https://codecov.io/bash)
