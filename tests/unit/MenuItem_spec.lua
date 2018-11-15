@@ -1,0 +1,6 @@
+describe('Menu Item', function()
+    it('can be instantiated')
+    it('has a label')
+    it('has a target')
+    it('calls target when activated')
+end)

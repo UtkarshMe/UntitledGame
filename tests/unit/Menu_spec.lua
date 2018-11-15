@@ -1,0 +1,5 @@
+describe('Menu', function()
+    it('can be instantiated')
+    it('allows MenuItem to be added')
+    it('can be destroyed')
+end)
