@@ -1,12 +1,10 @@
-local Background = require('components.Background')
-
 describe('Background', function()
 
-    local background = {}
+    local background = require('models.Background')
     local width, height = 60, 80
 
     setup(function()
-        background = Background:new(width, height)
+        background:init(width, height)
     end)
 
     it('can be instantiated', function()

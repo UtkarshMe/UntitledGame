@@ -1,10 +1,10 @@
+local util = require('util')
+
 local total_time, components
 
 -- Function to initialize game state
 -- Put config parsing, state initialization etc. here
 function love.load()
-    components = require('components.components')
-
     local props = {
         screen = {
             width = 800,   -- TODO: this should not be hard-coded
@@ -13,7 +13,9 @@ function love.load()
     }
     -- components should only be initialized after screen size is defined
     -- because screen size is required to properly load them
-    components:init(props)
+    components = {
+        background = util.loadComponent('Background', props),
+    }
 
     total_time = 0
 end
@@ -23,7 +25,7 @@ end
 function love.draw()
     love.graphics.setColor(1, 1, 1, 1)  -- reset color before drawing to canvas
 
-    love.graphics.draw(components.background.canvas)
+    components.background.view:draw(0, 0)
 end
 
 -- Function to manipulate game state at each frame

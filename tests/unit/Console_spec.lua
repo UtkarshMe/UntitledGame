@@ -1,12 +1,10 @@
-local Console = require('components.Console')
-
 describe('Console', function()
 
-    local console = {}
+    local console = require('models.Console')
     local width, height = 60, 80
 
     setup(function()
-        console = Console:new(width, height)
+        console:init(width, height)
     end)
 
     it('can be instantiated', function()
