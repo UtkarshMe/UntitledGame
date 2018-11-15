@@ -1,9 +1,13 @@
+language: c
 sudo: true
 
 install:
     - sudo apt-get install -y love luarocks
-    - sudo luarocks install luacheck busted luacov
+    - sudo luarocks install luacheck
+    - sudo luarocks install busted
+    - sudo luarocks install luacov
 
 script:
     - make lint
-    - make test
+    - make unittest
+    - make functionaltest
