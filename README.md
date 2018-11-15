@@ -2,8 +2,20 @@
 [![Build Status](https://travis-ci.org/UtkarshMe/UntitledGame.svg?branch=master)](https://travis-ci.org/UtkarshMe/UntitledGame)
 [![codecov](https://codecov.io/gh/UtkarshMe/UntitledGame/branch/master/graph/badge.svg)](https://codecov.io/gh/UtkarshMe/UntitledGame)
 
+
 ### Dependencies
-- [Love2d](https://love2d.org/)
+- [Love2d](https://love2d.org/): as game engine
+
+##### Dev dependencies
+- luacheck: for lint checking
+- busted: as test suite
+- codecov: for code coverage analysis
+
+
+### Documentation
+- code style guide: `docs/style_guide.md`
+- testing: `docs/testing.md`
+
 
 ### Build
 ```bash
@@ -18,6 +30,7 @@ make lint     # run code lint
 
 make package  # export the game
 ```
+
 
 ### License
 MIT
