@@ -13,8 +13,8 @@
 
 
 ### Documentation
-- code style guide: `docs/style_guide.md`
-- testing: `docs/testing.md`
+- code style guide: [`docs/style_guide.md`](https://github.com/UtkarshMe/UntitledGame/tree/master/docs/style_guide.md)
+- testing: [`docs/testing.md`](https://github.com/UtkarshMe/UntitledGame/tree/master/docs/testing.md)
 
 
 ### Build
