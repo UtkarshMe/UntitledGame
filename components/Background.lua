@@ -15,11 +15,6 @@ function Background:new(width, height)
     return setmetatable(newObj, self)
 end
 
-function Background:update()
-    -- TODO
-    return self
-end
-
 function Background:initCanvas()
     self.canvas = love.graphics.newCanvas()
 
