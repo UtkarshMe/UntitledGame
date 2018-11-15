@@ -1,9 +1,9 @@
 local Console = require('components/Console')
 
-local width, height = 60, 80
-
 describe('Console', function()
+
     local console = {}
+    local width, height = 60, 80
 
     setup(function()
         console = Console:new(width, height)
@@ -11,5 +11,12 @@ describe('Console', function()
 
     it('can be instantiated', function()
         assert.is_not_nil(console)
+    end)
+
+    it('can hold the user script', function()
+        local script = [[loop forward endloop]]
+        assert.is_nil(console.script)
+        console:setScript(script)
+        assert.is_same(script, console:getScript())
     end)
 end)

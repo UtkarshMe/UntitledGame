@@ -9,15 +9,18 @@ local Console = {
 function Console:new(width, height)
     local newObj = {
         size = { width = width, height = height },
-        value = [[ loop forward endloop ]],
+        value = nil,
     }
 
     self.__index = self
     return setmetatable(newObj, self)
 end
 
-function Console:update()
-    return self
+function Console:setScript(script)
+    self.value = script
+end
+function Console:getScript()
+    return self.value
 end
 
 function Console:initCanvas()
