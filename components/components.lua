@@ -6,11 +6,13 @@ local Console = require('components/Console')
 local Components = {}
 
 function Components:init(props)
-    self.background = Background:new(props.screen.width,
-            props.screen.height)
+    local width, height = props.screen.width, props.screen.height
 
-    self.console = Console:new(props.screen.width / 2,
-            props.screen.height / 2)
+    self.background = Background:new(width, height)
+    self.background:initCanvas()
+
+    self.console = Console:new(width / 2, height / 2)
+    self.console:initCanvas()
 end
 
 return Components

@@ -9,7 +9,6 @@ local Console = {
 function Console:new(width, height)
     local newObj = {
         size = { width = width, height = height },
-        canvas = love.graphics.newCanvas(),
         value = [[ loop forward endloop ]],
     }
 
@@ -18,8 +17,11 @@ function Console:new(width, height)
 end
 
 function Console:update()
-    -- TODO
     return self
+end
+
+function Console:initCanvas()
+    self.canvas = love.graphics.newCanvas()
 end
 
 
