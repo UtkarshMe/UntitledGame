@@ -9,6 +9,13 @@
 ```bash
 make          # does nothing at the moment
 make run      # run the game
+
+make test     # run tests (unit + functional)
+make unittest
+make functionaltest
+
+make lint     # run code lint
+
 make package  # export the game
 ```
 
