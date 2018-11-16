@@ -15,7 +15,11 @@ function love.load()
     -- because screen size is required to properly load them
     components = {
         background = util.loadComponent('Background', props),
+        map = util.loadComponent('Map', props),
     }
+
+    components.map.model:load('dummy')
+    components.map.view:generate()
 
     total_time = 0
 end
@@ -26,6 +30,7 @@ function love.draw()
     love.graphics.setColor(1, 1, 1, 1)  -- reset color before drawing to canvas
 
     components.background.view:draw(0, 0)
+    components.map.view:draw(0, 0)
 end
 
 -- Function to manipulate game state at each frame
