@@ -6,9 +6,9 @@ local Map = {
         height = 10,
     },
     components = {
-        'wall',
-        'box',
-        'grass',
+        'Wall',
+        'Box',
+        'Grass',
     },
     data = {
         { 1, 1, 1, 1, 1,  1, 1, 1, 1, 1 },

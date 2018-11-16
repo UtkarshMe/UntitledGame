@@ -15,13 +15,14 @@ describe('Map', function()
     end)
 
     it('can be loaded from file', function()
-        assert.is_same(map:getSize(), { width = 10, height = 10 })
-        assert.is_same(map:getMap().components, { 'wall', 'box', 'grass' })
+        local size = { width = 10, height = 10 }
+        assert.is_same(map:getSize(), size)
+        assert.is_same(map:getMap().components, { 'Wall', 'Box', 'Grass' })
     end)
 
     it('allows getting and setting tile at position', function()
         local tile = map:getTile(1, 1)
-        assert.is_same(map:getComponent(tile), 'wall')
+        assert.is_same(map:getComponent(tile), 'Wall')
 
         tile = 2
         map:setTile(1, 1, tile)
