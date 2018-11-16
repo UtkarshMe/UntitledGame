@@ -19,6 +19,7 @@ function love.load()
     }
 
     components.map.model:load('dummy')
+    components.map.view:generate()
 
     total_time = 0
 end
@@ -29,7 +30,7 @@ function love.draw()
     love.graphics.setColor(1, 1, 1, 1)  -- reset color before drawing to canvas
 
     components.background.view:draw(0, 0)
-    components.map.view:draw(100, 100)
+    components.map.view:draw(0, 0)
 end
 
 -- Function to manipulate game state at each frame

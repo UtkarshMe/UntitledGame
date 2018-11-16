@@ -12,8 +12,19 @@ function View:init(model)
     love.graphics.setCanvas(self.canvas)
         love.graphics.clear()
         love.graphics.setBlendMode('alpha')
+    love.graphics.setCanvas()  -- reset the canvas
+end
+
+function View:generate()
+    love.graphics.setCanvas(self.canvas)
         love.graphics.setColor(0, 0, 0, 1)
-        love.graphics.print('Hello there')
+        for x=1,#self.model.data do
+            for y=1,#self.model.data[x] do
+                love.graphics.print(
+                        self.model.components[self.model:getTile(x, y)],
+                        x * 50, y * 50)
+            end
+        end
     love.graphics.setCanvas()  -- reset the canvas
 end
 

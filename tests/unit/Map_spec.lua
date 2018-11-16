@@ -22,7 +22,7 @@ describe('Map', function()
 
     it('allows getting and setting tile at position', function()
         local tile = map:getTile(1, 1)
-        assert.is_same(tile, 0)
+        assert.is_same(tile, 1)
 
         tile = 2
         map:setTile(1, 1, tile)
