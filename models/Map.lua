@@ -15,4 +15,12 @@ function Map:load(mapName)
     self.data = map.data
 end
 
+function Map:getTile(x, y)
+    return self.data[y][x]
+end
+
+function Map:setTile(x, y, tile)
+    self.data[y][x] = tile
+end
+
 return Map
