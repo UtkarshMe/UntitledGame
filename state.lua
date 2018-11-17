@@ -1,6 +1,6 @@
 -- state.lua : Keeps track of the state of the game
 
-local prefix = 'data.states.'
+local prefix = 'models.states.'
 
 local State = {
     _stack = {},
