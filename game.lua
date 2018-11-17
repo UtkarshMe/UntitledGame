@@ -20,4 +20,15 @@ function Game:handleEvent(event, args)
     end
 end
 
+function Game:addEvent(stateName, event, cb)
+    local state = self.state:getStateInfo(stateName)
+    if state then
+        if state.events[event] then
+            print('Event exists!')
+        else
+            state.events[event] = cb
+        end
+    end
+end
+
 return Game
