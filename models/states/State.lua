@@ -13,16 +13,21 @@ function State:new(name)
 end
 
 function State:addEvent(eventName, callback)
-    if self.events[eventName] then
-        print('addEvent: event ' .. eventName ..
-                'already exists. Use replaceEvent')
+    if self:canHandleEvent(eventName) then
+        error('addEvent: event "' .. eventName ..
+                '" already exists. Use replaceEvent')
     else
         self.events[eventName] = callback
     end
 end
 
 function State:removeEvent(eventName)
-    self.events[eventName] = nil
+    if self:canHandleEvent(eventName) then
+        self.events[eventName] = nil
+    else
+        error('removeEvent: cannot remove event "' .. eventName ..
+                '" which does not exist.')
+    end
 end
 
 function State:replaceEvent(eventName, callback)
@@ -31,12 +36,16 @@ function State:replaceEvent(eventName, callback)
 end
 
 function State:handleEvent(eventName, args)
-    if self.events[eventName] then
-        self.events[eventName](args)
+    if self:canHandleEvent(eventName) then
+        return self.events[eventName](args)
     else
-        print('handleEvent: event ' .. eventName ..
-                ' does not exist. Use addEvent')
+        error('handleEvent: event "' .. eventName ..
+                '" does not exist. Use addEvent')
     end
+end
+
+function State:canHandleEvent(eventName)
+    return self.events[eventName] ~= nil
 end
 
 return State
