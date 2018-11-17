@@ -1,13 +1,14 @@
--- models/Map.lua : The current game map
+-- models/Map.lua : The model for game map
 
+local Model = require('models/Model')
+local model = Model:new(nil)
 local mapPrefix = 'data/maps/'
-local Map = {}
 
-function Map:init()
+function model:init()
     self.size = { width = 0, height = 0 }
 end
 
-function Map:load(mapName)
+function model:load(mapName)
     local map = require(mapPrefix .. mapName)
 
     self.size = map.size
@@ -15,12 +16,12 @@ function Map:load(mapName)
     self.data = map.data
 end
 
-function Map:getTile(x, y)
+function model:getTile(x, y)
     return self.data[y][x]
 end
 
-function Map:setTile(x, y, tile)
+function model:setTile(x, y, tile)
     self.data[y][x] = tile
 end
 
-return Map
+return model
