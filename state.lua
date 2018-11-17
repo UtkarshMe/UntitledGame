@@ -1,11 +1,17 @@
 -- state.lua : Keeps track of the state of the game
 
+local prefix = 'data.states.'
+
 local State = {
     _stack = {},
+    _states = {
+        dummy1 = { name = 'dummy1' }, dummy2 = { name = 'dummy2' }, -- for tests
+        menu = require(prefix .. 'menu'),
+    }
 }
 
 function State:push(state)
-    self._stack[#self._stack + 1] = state
+    self._stack[#self._stack + 1] = self._states[state]
 end
 
 function State:pop()
@@ -15,7 +21,10 @@ function State:pop()
 end
 
 function State:current()
-    return self._stack[#self._stack]
+    local state = self._stack[#self._stack]
+    if state then
+        return state.name
+    end
 end
 
 function State:empty()
