@@ -1,13 +1,10 @@
--- data/states/menu.lua : State info for menu
+-- models/states/menu.lua : State info for menu
 
-local state = {
-    name = 'menu',
-    events = {}
-}
+local State = require('models.states.State')
+local state = State:new('menu')
 
-local function activate(args)
+state:addEvent('activate', function(args)
     print('menu activated: ' .. unpack(args))
-end
-state.events.activate = activate
+end)
 
 return state
