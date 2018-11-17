@@ -1,6 +1,6 @@
 local Util = {}
 
-local function loadComponent(component, props)
+function Util.loadComponent(component, props)
     local width, height = props.screen.width, props.screen.height
 
     local obj = {
@@ -13,6 +13,5 @@ local function loadComponent(component, props)
 
     return obj
 end
-Util.loadComponent = loadComponent
 
 return Util
