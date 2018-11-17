@@ -1,4 +1,5 @@
 local util = require('util')
+local state = require('state')
 
 local total_time, components
 
@@ -21,6 +22,9 @@ function love.load()
     components.map.model:load('dummy')
     components.map.view:generate()
 
+    state:init()
+    state:push('menu')  -- initial state
+
     total_time = 0
 end
 
@@ -37,4 +41,9 @@ end
 -- Put game strategy here
 function love.update(time_since_update)
     total_time = total_time + time_since_update
+
+    -- check for input
+    -- handle input: update state
+
+    -- update computer controlled characters
 end
