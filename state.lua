@@ -10,8 +10,8 @@ local State = {
     }
 }
 
-function State:push(state)
-    self._stack[#self._stack + 1] = self._states[state]
+function State:push(stateName)
+    self._stack[#self._stack + 1] = self._states[stateName]
 end
 
 function State:pop()
@@ -25,6 +25,10 @@ function State:current()
     if state then
         return state.name
     end
+end
+
+function State:getStateInfo(stateName)
+    return self._states[stateName]
 end
 
 function State:empty()
