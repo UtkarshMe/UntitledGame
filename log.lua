@@ -4,12 +4,12 @@ local log = {}
 
 function log.info(...)
     -- comment out line below to prevent logging
-    print(...)
+    print('info : ' .. ...)
 end
 
 function log.debug(...)
     -- comment out line below to prevent logging
-    print(...)
+    print('debug: ' .. ...)
 end
 
 return log
