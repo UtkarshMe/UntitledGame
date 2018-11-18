@@ -15,14 +15,17 @@ end
 
 -- load things which are not gonna change (like images, etc.) here
 function View.load()
+    print('View not implemented')
 end
 
 -- update the canvas
 function View.update()
+    print('View not implemented')
 end
 
 -- load the canvas
 function View.draw()
+    print('View not implemented')
 end
 
 

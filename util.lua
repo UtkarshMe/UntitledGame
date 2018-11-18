@@ -1,14 +1,10 @@
 local Util = {}
 
 function Util.load(component, props)
-    local obj = { name = component }
-
-    obj.model = require('models.' .. component):new(obj)
+    local obj = require('models.' .. component):new()
     obj.view = require('views.' .. component):new(obj, props)
-    obj.controller = require('controllers.' .. component):new(obj)
-
     obj.view:load()
-
+    obj.controller = require('controllers.' .. component):new(obj)
     return obj
 end
 
