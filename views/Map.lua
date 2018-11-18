@@ -4,6 +4,7 @@ local View = require('views.View')
 local view = View:new()
 
 function view:load()
+    self.canvas = love.graphics.newCanvas()
     love.graphics.setCanvas(self.canvas)
         love.graphics.clear()
         love.graphics.setBlendMode('alpha')

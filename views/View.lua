@@ -5,7 +5,7 @@ local View = {}
 function View:new(parent, props)
     local obj = {
         _parent = parent,
-        canvas = love.graphics.newCanvas(),
+        canvas = nil,
         props = props,
     }
 
