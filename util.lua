@@ -1,15 +1,18 @@
 local Util = {}
 
-function Util.loadComponent(component, props)
-    local width, height = props.screen.width, props.screen.height
+function Util.load(component, props)
+    local Model = require('models.' .. component)
+    --TODO: --local Model = require('models.' .. component):new(obj)
+    local View = require('views.' .. component)
+    local Controller = require('controllers.' .. component)
+    local obj = {}
 
-    local obj = {
-        model = require('models.'..component),
-        view = require('views.'..component)
-    }
+    obj.name = component
+    obj.model = Model:new(obj)
+    obj.view = View:new(obj, props)
+    obj.controller = Controller:new(obj)
 
-    obj.model:init(width, height)
-    obj.view:init(obj.model)
+    obj.view:load()
 
     return obj
 end

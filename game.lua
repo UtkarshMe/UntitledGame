@@ -1,20 +1,24 @@
--- game.lua : Control the game
+-- game.lua : A state machine to control the game
 
 local log = require('log')
-local prefix = 'models.states.'
+local util = require('util')
 
 local game = {
     state = require('state'),
-    _states = {
-        menu = require(prefix .. 'menu'),
-        map = require(prefix .. 'map'),
-    },
     event = {},  -- TODO: Add queue
 }
 
 function game.init()
-    game.state:empty()
+    game._states = {
+        menu = util.load('Menu'),
+        map = util.load('Map'),
+    }
+
     game.switch('menu')  -- initial state
+end
+
+function game.draw()
+    game.state:current().view:draw()
 end
 
 function game.switch(stateName)
@@ -31,7 +35,7 @@ function game.event:push(event, args)
     -- game.event will eventually use queue. add self as argument to keep the
     -- interface constant.
     self._top = event
-    game.state:current():handleEvent(self._top, args)
+    game.state:current().controller:handleEvent(self._top, args)
 end
 
 function game.event.add(stateName, event, cb)

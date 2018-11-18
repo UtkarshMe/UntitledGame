@@ -1,13 +1,9 @@
+-- views/Map.lua : View for Map model
 
-local View = {
-    model = nil,
-    canvas = nil,
-}
+local View = require('views.View')
+local view = View:new()
 
-function View:init(model)
-    self.model = model
-
-    -- generate canvas: this should only ever be done once
+function view:load()
     self.canvas = love.graphics.newCanvas()
     love.graphics.setCanvas(self.canvas)
         love.graphics.clear()
@@ -15,7 +11,7 @@ function View:init(model)
     love.graphics.setCanvas()  -- reset the canvas
 end
 
-function View:generate()
+function view:update()
     love.graphics.setCanvas(self.canvas)
         love.graphics.setColor(0, 0, 0, 1)
         for x=1,#self.model.data do
@@ -28,8 +24,8 @@ function View:generate()
     love.graphics.setCanvas()  -- reset the canvas
 end
 
-function View:draw(width, height)
-    love.graphics.draw(self.canvas, width, height)
+function view:draw(x, y)
+    love.graphics.draw(self.canvas, x, y)
 end
 
-return View
+return view
