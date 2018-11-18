@@ -4,7 +4,7 @@ local log = require('log')
 local util = require('util')
 
 local game = {
-    state = require('state'),
+    state = require('lib.Stack'):new(),
     event = {},  -- TODO: Add queue
 }
 
@@ -18,7 +18,7 @@ function game.init()
 end
 
 function game.draw()
-    game.state:current().view:draw()
+    game.state:top().view:draw()
 end
 
 function game.switch(stateName)
@@ -35,7 +35,7 @@ function game.event:push(event, args)
     -- game.event will eventually use queue. add self as argument to keep the
     -- interface constant.
     self._top = event
-    game.state:current().controller:handleEvent(self._top, args)
+    game.state:top().controller:handleEvent(self._top, args)
 end
 
 function game.event.add(stateName, event, cb)
