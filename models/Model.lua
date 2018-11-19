@@ -3,9 +3,7 @@
 local Model = {}
 
 function Model:new(parent)
-    local obj = {
-        _parent = parent
-    }
+    local obj = parent or { name = 'UnnamedModel' }
 
     self.__index = self
     return setmetatable(obj, self)

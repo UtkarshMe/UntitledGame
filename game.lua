@@ -15,6 +15,9 @@ function game.init()
     }
 
     game.switch('menu')  -- initial state
+
+    game._states.map:load('forward')
+    game._states.map.view:update()
 end
 
 function game.draw()

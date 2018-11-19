@@ -5,7 +5,9 @@ local model = Model:new(nil)
 local mapPrefix = 'data/maps/'
 
 function model:init()
-    self.size = { width = 0, height = 0 }
+    self.map = {
+        size = { width = 0, height = 0 }
+    }
 end
 
 function model:load(mapName)
@@ -30,6 +32,14 @@ function model:setTile(x, y, tile)
     else
         error('No component for tile id "' .. tile .. '"')
     end
+end
+
+function model:getUserPosition()
+    return self.map.positions.user
+end
+
+function model:setUserPosition(position)
+    self.map.positions.user = position
 end
 
 return model

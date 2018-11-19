@@ -43,6 +43,7 @@ end
 
 function Controller:handleEvent(eventName, args)
     if self:canHandleEvent(eventName) then
+        log.debug(self._parent.name .. '.handleEvent: ' .. eventName)
         return self[eventName](self, args)
     else
         error(self._parent.name .. '.handleEvent: event "' .. eventName ..

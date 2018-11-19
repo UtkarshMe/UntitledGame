@@ -14,10 +14,10 @@ end
 function view:update()
     love.graphics.setCanvas(self.canvas)
         love.graphics.setColor(0, 0, 0, 1)
-        for x=1,#self.map.data do
-            for y=1,#self.map.data[x] do
+        for x=1,#self._parent.map.data do
+            for y=1,#self._parent.map.data[x] do
                 love.graphics.print(
-                        self.map.components[self:getTile(x, y)],
+                        self._parent.map.components[self._parent:getTile(x, y)],
                         x * 50, y * 50)
             end
         end
@@ -26,6 +26,8 @@ end
 
 function view:draw(x, y)
     love.graphics.draw(self.canvas, x, y)
+    local user = self._parent:getUserPosition()
+    love.graphics.print('pl', user[1] * 50, user[2] * 50)
 end
 
 return view
