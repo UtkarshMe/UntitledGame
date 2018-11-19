@@ -43,7 +43,7 @@ end
 
 function Controller:handleEvent(eventName, args)
     if self:canHandleEvent(eventName) then
-        return self[eventName](args)
+        return self[eventName](self, args)
     else
         error(self._parent.name .. '.handleEvent: event "' .. eventName ..
                 '" does not exist.')

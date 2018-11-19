@@ -16,8 +16,8 @@ describe('Map', function()
     end)
 
     it('can be loaded from file', function()
-        assert.is_same(map.size, size)
-        assert.is_same(map.components, { 'wall', 'box', 'grass' })
+        assert.is_same(map:getSize(), size)
+        assert.is_same(map:getMap().components, { 'wall', 'box', 'grass' })
     end)
 
     it('allows getting and setting tile at position', function()
@@ -27,5 +27,10 @@ describe('Map', function()
         tile = 2
         map:setTile(1, 1, tile)
         assert.is_same(map:getTile(1, 1), tile)
+
+        tile = 99
+        assert.has_error(function()
+            map:setTile(1, 1, tile)
+        end)
     end)
 end)

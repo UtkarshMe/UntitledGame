@@ -10,7 +10,7 @@ function love.load()
     game.init()
 
     -- FIXME: should be in update
-    --game.event:push('activate', {'new'}) -- user "activates" button "new"
+    game.event:push('activate', { 1 }) -- user "activates" button "new"
 end
 
 -- Function to render the game screen

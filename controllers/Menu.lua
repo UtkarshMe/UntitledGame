@@ -4,9 +4,10 @@ local log = require('log')
 local Controller = require('controllers/Controller')
 local controller = Controller:new(Controller)
 
-function controller.activate(args)
-    log.debug('Menu.activate: ' .. unpack(args))
-    globals.game.switch('map')
+function controller:activate(args)
+    local item = unpack(args)
+    log.debug('Menu.activate: ' .. item)
+    self._parent.items[item].target()
 end
 
 

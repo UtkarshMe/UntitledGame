@@ -2,8 +2,8 @@ local Controller = require('controllers.Controller')
 
 describe('Controller', function()
     local controller = nil
-    local cb1 = function(args) return unpack(args) end
-    local cb2 = function(args) return not unpack(args) end
+    local cb1 = function(_, args) return unpack(args) end
+    local cb2 = function(_, args) return not unpack(args) end
 
     before_each(function()
         controller = Controller:new()

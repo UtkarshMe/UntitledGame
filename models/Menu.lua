@@ -8,7 +8,10 @@ local model = Model:new()
 function model:new()
     local obj = {
         items = {
-            MenuItem:new('New Game'),
+            MenuItem:new('New Game', function()
+                -- user "activates" button "new"
+                globals.game.switch('map')
+            end),
             MenuItem:new('Load Game'),
             MenuItem:new('Save Game'),
             MenuItem:new('How to Play'),

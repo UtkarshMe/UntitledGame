@@ -14,10 +14,10 @@ end
 function view:update()
     love.graphics.setCanvas(self.canvas)
         love.graphics.setColor(0, 0, 0, 1)
-        for x=1,#self.model.data do
-            for y=1,#self.model.data[x] do
+        for x=1,#self.map.data do
+            for y=1,#self.map.data[x] do
                 love.graphics.print(
-                        self.model.components[self.model:getTile(x, y)],
+                        self.map.components[self:getTile(x, y)],
                         x * 50, y * 50)
             end
         end

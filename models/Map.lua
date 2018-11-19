@@ -9,19 +9,27 @@ function model:init()
 end
 
 function model:load(mapName)
-    local map = require(mapPrefix .. mapName)
+    self.map = require(mapPrefix .. mapName)
+end
 
-    self.size = map.size
-    self.components = map.components
-    self.data = map.data
+function model:getSize()
+    return self.map.size
+end
+
+function model:getMap()
+    return self.map
 end
 
 function model:getTile(x, y)
-    return self.data[y][x]
+    return self.map.data[y][x]
 end
 
 function model:setTile(x, y, tile)
-    self.data[y][x] = tile
+    if self.map.components[tile] then
+        self.map.data[y][x] = tile
+    else
+        error('No component for tile id "' .. tile .. '"')
+    end
 end
 
 return model
