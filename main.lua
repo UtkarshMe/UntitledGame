@@ -18,7 +18,6 @@ function love.load()
     game.event:push('step')
     game.event:push('step')
     game.event:push('step')
-    game.event:push('step')
 end
 
 -- Function to render the game screen
