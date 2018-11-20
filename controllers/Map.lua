@@ -12,4 +12,8 @@ function controller:execute(args)
     end
 end
 
+function controller:input(args)
+    self._parent.script = unpack(args)
+end
+
 return controller
