@@ -11,13 +11,12 @@ function love.load()
     game.init()
 
     -- FIXME: should be in update
-    game.event:push('activate', { 1 }) -- user "activates" button "new"
-    game.event:push('update', { 'forward forward forward' })
-    game.event:push('submit')
-    game.event:push('step')
-    game.event:push('step')
-    game.event:push('step')
-    game.event:push('step')
+    --game.event:push('update', { 'forward forward forward' })
+    --game.event:push('submit')
+    --game.event:push('step')
+    --game.event:push('step')
+    --game.event:push('step')
+    --game.event:push('step')
 end
 
 -- Function to render the game screen
@@ -33,4 +32,12 @@ function love.update()
     -- handle input: update state
 
     -- update computer controlled characters
+end
+
+function love.keypressed(key, unicode)
+    if key == "escape" then
+        love.event.quit()
+    else
+        game.event:push('keyinput', { key, unicode })
+    end  -- temporary
 end

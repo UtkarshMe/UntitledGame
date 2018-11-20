@@ -7,7 +7,8 @@ local model = Model:new()
 
 function model:new()
     local obj = {
-        items = {}
+        items = {},
+        highlighted = 1
     }
 
     self.__index = self
@@ -24,6 +25,18 @@ end
 
 function model:getItem(id)
     return self.items[id]
+end
+
+function model:getHighlighted()
+    return self.highlighted
+end
+
+function model:setHighlighted(id)
+    if id > #self.items or id < 1 then
+        error('Menu.setHighlighted: id out of bounds')
+    else
+        self.highlighted = id
+    end
 end
 
 return model

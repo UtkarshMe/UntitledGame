@@ -31,8 +31,13 @@ function view:draw(x, y)
         log.debug('menu.view.draw: draw canvas')
         love.graphics.draw(self.canvas, x, y)
         love.graphics.setColor(0, 0, 0, 1)
+        local highlighted = self._parent:getHighlighted()
         for i,item in ipairs(self._parent.items) do
-            item.view:draw(20, 20 * i)
+            if i == highlighted then
+                item.view:draw(25, 20 * i)
+            else
+                item.view:draw(20, 20 * i)
+            end
         end
     else
         error('attempting to draw view not loaded')
