@@ -10,7 +10,7 @@ function model:new()
         items = {
             MenuItem:new('New Game', function()
                 -- user "activates" button "new"
-                globals.game.switch('map')
+                globals.game.switch('console')
             end),
             MenuItem:new('Load Game'),
             MenuItem:new('Save Game'),

@@ -11,6 +11,7 @@ local game = {
 function game.init()
     game._states = {
         menu = util.load('Menu'),
+        console = util.load('Console'),
         map = util.load('Map'),
     }
 
