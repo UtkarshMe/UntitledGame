@@ -33,7 +33,7 @@ function controller:endGame()
     local user = self._parent:getPosition('user')
     local exit = self._parent:getPosition('exit')
 
-    if user == exit then
+    if user[1] == exit[1] and user[2] == exit[2] then
         globals.game.event:push('win')
     else
         globals.game.event:push('lose')
