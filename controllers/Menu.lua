@@ -33,4 +33,8 @@ function controller.keyinput(model, args)
     model:setHighlighted(highlighted)
 end
 
+function controller.textinput()
+    -- nop
+end
+
 return controller

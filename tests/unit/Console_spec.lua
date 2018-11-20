@@ -2,6 +2,7 @@ require('tests.unit.helper')
 
 local console = nil
 local script = 'some script'
+local value = 'this is some script'
 
 describe('Console', function()
     setup(function()
@@ -13,6 +14,14 @@ describe('Console', function()
         assert.is_same(console:getValue(), script)
 
         console:updateValue()
-        assert.is_nil(console:getValue())
+        assert.is_same(console:getValue(), '')
+    end)
+
+    it('can append to user script', function()
+        console:appendValue(script)
+        assert.is_same(console:getValue(), script)
+
+        console:appendValue(value)
+        assert.is_same(console:getValue(), script .. value)
     end)
 end)

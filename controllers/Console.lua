@@ -1,7 +1,7 @@
 -- controllers/Console.lua : Controllers for Console model
 
-local default = require('controllers.Default')
 local controller = { name = 'Console' }
+local log = require('log')
 
 function controller.submit(model)
     globals.game.state:push('Map')
@@ -12,7 +12,13 @@ function controller.update(model, args)
     model:updateValue(args[1])
 end
 
-controller.keyinput = default.keyinput
-controller.textinput = default.textinput
+function controller.textinput(model, args)
+    model:appendValue(args[1])
+end
+
+function controller.keyinput(_, args)
+    -- TODO: Implement way to move cursor
+    log.debug('Console.keyinput: ' .. (args[1] or 'empty'))
+end
 
 return controller
