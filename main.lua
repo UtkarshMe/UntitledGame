@@ -11,6 +11,7 @@ function love.load()
 
     -- FIXME: should be in update
     game.event:push('activate', { 1 }) -- user "activates" button "new"
+    game.event:push('update', { 'forward' })
     game.event:push('submit')
     game.event:push('execute', { 'forward' })
 end

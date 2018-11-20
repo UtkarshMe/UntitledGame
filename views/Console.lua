@@ -15,7 +15,7 @@ function view:draw(x, y)
     if self.canvas then
         log.debug('menu.view.draw: draw canvas')
         love.graphics.draw(self.canvas, x, y)
-        love.graphics.print(self._parent:getValue(), x, y)
+        love.graphics.print(self._parent:getValue() or 'Nothing', x, y)
     else
         error('attempting to draw view not loaded')
     end
