@@ -7,20 +7,32 @@ local model = Model:new()
 
 function model:new()
     local obj = {
-        items = {
-            MenuItem:new('New Game', function()
-                -- user "activates" button "new"
-                globals.game.switch('console')
-            end),
-            MenuItem:new('Load Game'),
-            MenuItem:new('Save Game'),
-            MenuItem:new('How to Play'),
-            MenuItem:new('Exit'),
-        },
+        items = {}
     }
 
     self.__index = self
-    return setmetatable(obj, self)
+    setmetatable(obj, self)
+
+    obj:addItem('New Game', function()
+        -- user "activates" button "new"
+        globals.game.switch('console')
+    end)
+    obj:addItem('Load Game')
+    obj:addItem('Save Game')
+    obj:addItem('How to Play')
+    obj:addItem('Exit')
+
+    return obj
+end
+
+function model:addItem(label, callback)
+    local id = #self.items + 1
+    self.items[id] = MenuItem:new(label, callback)
+    return id
+end
+
+function model:getItem(id)
+    return self.items[id]
 end
 
 return model
