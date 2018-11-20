@@ -6,6 +6,7 @@ local mapPrefix = 'data/maps/'
 
 function model:load(mapName)
     self.map = require(mapPrefix .. mapName)
+    self.script = nil
 end
 
 function model:getSize()
