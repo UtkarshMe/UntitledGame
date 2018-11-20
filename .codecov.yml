@@ -1,0 +1,3 @@
+ignore:
+    - util.lua
+    - log.lua
