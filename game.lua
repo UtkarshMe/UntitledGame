@@ -15,6 +15,14 @@ function game.init()
         map = util.load('Map'),
     }
 
+    game._states.menu:addItem('New Game', function()
+        game.switch('console')
+    end)
+    game._states.menu:addItem('Load Game')
+    game._states.menu:addItem('Save Game')
+    game._states.menu:addItem('How to Play')
+    game._states.menu:addItem('Exit')
+
     game.switch('menu')  -- initial state
 
     game._states.map:load('forward')

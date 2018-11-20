@@ -13,15 +13,6 @@ function model:new()
     self.__index = self
     setmetatable(obj, self)
 
-    obj:addItem('New Game', function()
-        -- user "activates" button "new"
-        globals.game.switch('console')
-    end)
-    obj:addItem('Load Game')
-    obj:addItem('Save Game')
-    obj:addItem('How to Play')
-    obj:addItem('Exit')
-
     return obj
 end
 
