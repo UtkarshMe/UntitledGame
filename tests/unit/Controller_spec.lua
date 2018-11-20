@@ -1,3 +1,4 @@
+require('tests.unit.helper')
 local Controller = require('controllers.Controller')
 
 describe('Controller', function()

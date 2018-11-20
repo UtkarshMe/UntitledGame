@@ -1,4 +1,5 @@
 globals = {}
+globals.logLevel = 'debug'
 
 local game = require('game')
 
