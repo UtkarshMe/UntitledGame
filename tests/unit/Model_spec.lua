@@ -3,12 +3,13 @@ local Model = require('models.Model')
 describe('Model', function()
     local model = nil
 
-    before_each(function()
+    it('has a name', function()
+        model = Model:new({ name = 'myModel'})
+        assert.is_not_nil(model)
+        assert.is_same(model:getName(), 'myModel')
+
         model = Model:new()
         assert.is_not_nil(model)
-    end)
-
-    after_each(function()
-        model = nil
+        assert.is_same(model:getName(), 'UnnamedModel')
     end)
 end)

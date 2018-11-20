@@ -9,5 +9,9 @@ function Model:new(parent)
     return setmetatable(obj, self)
 end
 
+function Model:getName()
+    return self.name or 'UnnamedModel'
+end
+
 
 return Model
