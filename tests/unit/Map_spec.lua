@@ -33,18 +33,28 @@ describe('Map', function()
     end)
 
     it('allows getting and setting user position', function()
-        assert.is_same(map:getUserPosition(), { 2, 2 })
+        assert.is_same(map:getPosition('user'), { 2, 2 })
 
-        map:setUserPosition({ 2, 3 })
-        assert.is_same(map:getUserPosition(), { 2, 3 })
+        map:setPosition('user', { 2, 3 })
+        assert.is_same(map:getPosition('user'), { 2, 3 })
 
         assert.has_error(function()
             local size = map:getSize()
-            map:setUserPosition({ size.width + 1, size.height + 1 })
+            map:setPosition('user', { size.width + 1, size.height + 1 })
         end)
 
         assert.has_error(function()
-            map:setUserPosition({ 0, 0 })
+            map:setPosition('user', { 0, 0 })
+        end)
+    end)
+
+    it('does not get/set position of unknown things', function()
+        assert.has_error(function()
+            map:getPosition('unk')
+        end)
+
+        assert.has_error(function()
+            map:setPosition('unk', { 1, 2 })
         end)
     end)
 end)

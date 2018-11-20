@@ -26,7 +26,7 @@ end
 
 function view:draw(x, y)
     love.graphics.draw(self.canvas, x, y)
-    local user = self._parent:getUserPosition()
+    local user = self._parent:getPosition('user')
     love.graphics.print('pl', user[1] * 50, user[2] * 50)
 end
 
