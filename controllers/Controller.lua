@@ -55,4 +55,12 @@ function Controller:canHandleEvent(eventName)
     return self[eventName] ~= nil
 end
 
+function Controller.keyinput(args)
+    log.info('Controller.inputkey: ' .. (args[1] or ''))
+end
+
+function Controller.textinput(args)
+    log.info('Controller.inputkey: ' .. (args[1] or ''))
+end
+
 return Controller
