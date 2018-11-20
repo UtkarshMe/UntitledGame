@@ -1,5 +1,14 @@
 PROJECT_NAME    = UntitledGame
-SOURCES         = main.lua conf.lua
+SOURCES         = main.lua \
+                  conf.lua \
+                  game.lua \
+                  util.lua \
+                  log.lua \
+                  models/* \
+                  views/* \
+                  controllers/* \
+                  lib/* \
+                  data/*
 
 .PHONY: all run love lint package test
 
