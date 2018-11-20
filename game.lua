@@ -21,7 +21,10 @@ function game.init()
     game._states.menu:addItem('Load Game')
     game._states.menu:addItem('Save Game')
     game._states.menu:addItem('How to Play')
-    game._states.menu:addItem('Exit')
+    game._states.menu:addItem('Exit', function()
+        love.event.quit()
+    end)
+    game._states.menu.view:load()
 
     game.switch('menu')  -- initial state
 
