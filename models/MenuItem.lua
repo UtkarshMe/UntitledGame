@@ -13,4 +13,20 @@ function model:new(label, target)
     return setmetatable(obj, self)
 end
 
+function model:getLabel()
+    return self.label
+end
+
+function model:setLabel(label)
+    self.label = label
+end
+
+function model:getTarget()
+    return self.target
+end
+
+function model:setTarget(target)
+    self.target = target
+end
+
 return model

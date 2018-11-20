@@ -1,5 +1,26 @@
+local Menu = require('models.Menu')
+
 describe('Menu', function()
-    it('can be instantiated')
-    it('allows MenuItem to be added')
-    it('can be destroyed')
+    local menu = nil
+    local cb = function(_) return true end
+
+    before_each(function()
+        menu = Menu:new()
+    end)
+
+    it('allows MenuItem to be added', function()
+        menu:addItem('item1', cb)
+    end)
+
+    it('allows MenuItem to be fetched', function()
+        local id = menu:addItem('item1', cb)
+        local item = menu:getItem(id)
+        assert.is_same(item.label, 'item1')
+        assert.is_true(item.target())
+    end)
+
+    it('return nil on fetching non-existant id', function()
+        assert.is_nil(menu:getItem(99))
+        assert.is_nil(menu:getItem('some wrong id'))
+    end)
 end)
