@@ -19,7 +19,7 @@ local Map = {
     },
     positions = {
         user = { 3, 5 },
-        exit = { 1, 3 },
+        exit = { 3, 1 },
     },
     commands = {
         'forward',
