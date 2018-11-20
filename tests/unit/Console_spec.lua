@@ -1,3 +1,5 @@
+require('tests.unit.helper')
+
 local console = nil
 local script = 'some script'
 

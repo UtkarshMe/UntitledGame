@@ -1,3 +1,4 @@
+require('tests.unit.helper')
 local View = require('views.View')
 
 describe('View', function()
