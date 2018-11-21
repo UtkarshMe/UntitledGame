@@ -1,7 +1,8 @@
 -- controllers/Console.lua : Controllers for Console model
 
-local controller = { name = 'Console' }
 local log = require('log')
+local utf8 = require('utf8')
+local controller = { name = 'Console' }
 
 function controller.submit(model)
     globals.game.state:push('Map')
@@ -16,9 +17,23 @@ function controller.textinput(model, args)
     model:appendValue(args[1])
 end
 
-function controller.keyinput(_, args)
+function controller.keyinput(model, args)
     -- TODO: Implement way to move cursor
-    log.debug('Console.keyinput: ' .. (args[1] or 'empty'))
+    local key = args[1] or 'empty'
+    log.debug('Console.keyinput: ' .. key)
+
+    if key == 'backspace' then
+        local value = model:getValue()
+        local byteoffset = utf8.offset(value, -1)
+
+        if byteoffset then
+            -- remove the last UTF-8 character.
+            -- string.sub operates on bytes rather than UTF-8 characters, so we
+            -- couldn't do string.sub(value, 1, -2).
+            value = string.sub(value, 1, byteoffset - 1)
+        end
+        model:updateValue(value)
+    end
 end
 
 return controller
