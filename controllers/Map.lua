@@ -1,42 +1,41 @@
 -- controllers/Map.lua : Controllers for Map model
 
 local log = require('log')
-local Controller = require('controllers/Controller')
-local controller = Controller:new('map')
+local controller = { name = 'Map' }
 
-function controller:execute(args)
+function controller.execute(model, args)
     local command = unpack(args)
     if command == 'forward' then
-        local user = self._parent:getPosition('user')
+        local user = model:getPosition('user')
         user[2] = user[2] - 1
-        self._parent:setPosition('user', user)
+        model:setPosition('user', user)
     end
 end
 
-function controller:input(args)
-    self._parent.script = unpack(args)
-    self.nextToken = string.gmatch(self._parent.script or '', "[%a_]+")
+function controller.input(model, args)
+    model.script = unpack(args)
+    model.nextToken = string.gmatch(model.script or '', "[%a_]+")
 end
 
-function controller:step()
-    local command = self:nextToken()
+function controller.step(model)
+    local command = model.nextToken()
     if command then
         log.debug('Map.step: ' .. command)
-        globals.game.event:push('execute', { command })
+        globals.game.event.push('execute', { command })
     else
         log.debug('Map.step: End of script')
-        globals.game.event:push('endGame')
+        globals.game.event.push('endGame')
     end
 end
 
-function controller:endGame()
-    local user = self._parent:getPosition('user')
-    local exit = self._parent:getPosition('exit')
+function controller.endGame(model)
+    local user = model:getPosition('user')
+    local exit = model:getPosition('exit')
 
     if user[1] == exit[1] and user[2] == exit[2] then
-        globals.game.event:push('win')
+        globals.game.event.push('win')
     else
-        globals.game.event:push('lose')
+        globals.game.event.push('lose')
     end
 end
 

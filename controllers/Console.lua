@@ -1,16 +1,14 @@
 -- controllers/Console.lua : Controllers for Console model
 
-local Controller = require('controllers/Controller')
-local controller = Controller:new()
+local controller = { name = 'Console' }
 
-function controller:submit()
-    globals.game.switch('map')
-    globals.game.event:push('input', { self._parent:getValue() })
+function controller.submit(model)
+    globals.game.state:push('Map')
+    globals.game.event.push('input', { model:getValue() })
 end
 
-function controller:update(args)
-    local text = unpack(args)
-    self._parent:updateValue(text)
+function controller.update(model, args)
+    model:updateValue(args[1])
 end
 
 return controller

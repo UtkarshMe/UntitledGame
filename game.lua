@@ -5,56 +5,59 @@ local util = require('util')
 
 local game = {
     state = require('lib.Stack'):new(),
-    event = {},  -- TODO: Add queue
+    models = {},
+    views = {},
+    event = {
+        handlers = love.handlers,
+        poll = love.event.poll,
+    },
 }
 
-function game.init()
-    game._states = {
-        menu = util.load('Menu'),
-        console = util.load('Console'),
-        map = util.load('Map'),
-    }
+function game.event.add(stateName, event, cb)
+    log.debug('game.event.add: ' .. stateName .. ': ' .. event)
+    game.event.handlers[stateName][event] = cb
+end
 
-    game._states.menu:addItem('New Game', function()
-        game.switch('console')
+function game.event.push(event, args)
+    local state = game.state:top()
+    log.debug('game.event.push: ' .. state .. ': ' .. event)
+    love.event.push(state, event, args)
+end
+
+function game.loadComponent(component)
+    log.debug('game.loadComponent: ' .. component)
+    local model = require('models.' .. component):new({ name = component })
+    game.models[component] = model
+    game.views[component] = require('views.' .. component):new(model)
+    game.event.handlers[component] = util.newEventHandler(
+            require('controllers.' .. component), model)
+end
+
+function game.load()
+    game.loadComponent('Menu')
+    game.loadComponent('Console')
+    game.loadComponent('Map')
+
+    game.models.Menu:addItem('New Game', function()
+        game.state:push('Console')
     end)
-    game._states.menu:addItem('Load Game')
-    game._states.menu:addItem('Save Game')
-    game._states.menu:addItem('How to Play')
-    game._states.menu:addItem('Exit', function()
-        love.event.quit()
-    end)
-    game._states.menu.view:load()
+    game.models.Menu:addItem('Load Game')
+    game.models.Menu:addItem('Save Game')
+    game.models.Menu:addItem('How to Play')
+    game.models.Menu:addItem('Exit', function() love.event.quit() end)
 
-    game.switch('menu')  -- initial state
+    game.views.Menu:load()
+    game.views.Console:load()
+    game.views.Map:load()
 
-    game._states.map:load('forward')
-    game._states.map.view:update()
+    game.state:push('Menu')
+
+    game.models.Map:load('forward')
+    game.views.Map:update()
 end
 
 function game.draw()
-    game.state:top().view:draw()
-end
-
-function game.switch(stateName)
-    if game._states[stateName] then
-        log.debug('game.switch: ' .. stateName)
-        game.state:push(game._states[stateName])
-    else
-        error('game.switch: state "' .. stateName .. '" does not exist')
-    end
-end
-
-
-function game.event:push(event, args)
-    -- game.event will eventually use queue. add self as argument to keep the
-    -- interface constant.
-    self._top = event
-    game.state:top().controller:handleEvent(self._top, args)
-end
-
-function game.event.add(stateName, event, cb)
-    game._states[stateName]:addEvent(event, cb)
+    game.views[game.state:top()]:draw()
 end
 
 return game
