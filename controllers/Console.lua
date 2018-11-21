@@ -33,6 +33,9 @@ function controller.keyinput(model, args)
             value = string.sub(value, 1, byteoffset - 1)
         end
         model:updateValue(value)
+
+    elseif key == 'return' then  -- FIXME
+        globals.game.event.push('submit')
     end
 end
 
