@@ -1,11 +1,14 @@
-local Util = {}
+-- util.lua
 
-function Util.load(component, props)
-    local obj = require('models.' .. component):new({ name = component })
-    obj.view = require('views.' .. component):new(obj, props)
-    obj.view:load()
-    obj.controller = require('controllers.' .. component):new(obj)
-    return obj
+local util = {}
+
+function util.newEventHandler(parent, model)
+    local obj = parent or require('controllers.Default')
+    return function(event, args)
+        if obj[event] then
+            obj[event](model, args)
+        end
+    end
 end
 
-return Util
+return util

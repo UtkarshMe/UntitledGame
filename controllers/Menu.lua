@@ -1,22 +1,22 @@
 -- controllers/Menu.lua : Controllers for Menu model
 
 local log = require('log')
-local Controller = require('controllers/Controller')
-local controller = Controller:new(Controller)
+local controller = { name = 'Menu' }
 
-function controller:activate(args)
+function controller.activate(model, args)
     local item = unpack(args)
     log.debug('Menu.activate: ' .. item)
-    self._parent.items[item].target()
+    model.items[item].target()
 end
 
-function controller:keyinput(args)
+function controller.keyinput(model, args)
     local key = unpack(args)
-    local highlighted = self._parent:getHighlighted()
+    local highlighted = model:getHighlighted()
 
     log.debug('Menu.keyinput: ' .. key)
+
     if key == 'return' then
-        globals.game.event:push('activate', { highlighted })
+        globals.game.event.push('activate', { highlighted })
         return
     elseif key == 'down' then
         highlighted = highlighted + 1
@@ -25,13 +25,12 @@ function controller:keyinput(args)
     end
 
     if highlighted == 0 then
-        highlighted = #self._parent.items
-    elseif highlighted > #self._parent.items then
+        highlighted = #model.items
+    elseif highlighted > #model.items then
         highlighted = 1
     end
 
-    self._parent:setHighlighted(highlighted)
+    model:setHighlighted(highlighted)
 end
-
 
 return controller
