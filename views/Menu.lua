@@ -28,7 +28,6 @@ end
 
 function view:draw(x, y)
     if self.canvas then
-        log.debug('menu.view.draw: draw canvas')
         love.graphics.draw(self.canvas, x, y)
         love.graphics.setColor(0, 0, 0, 1)
         local highlighted = self._parent:getHighlighted()

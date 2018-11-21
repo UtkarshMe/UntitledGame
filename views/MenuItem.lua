@@ -1,6 +1,5 @@
 -- views/MenuItem.lua : View for MenuItem model
 
-local log = require('log')
 local View = require('views.View')
 local view = View:new()
 
@@ -19,7 +18,6 @@ end
 
 function view:draw(x, y)
     if self.canvas then
-        log.debug('menuitem.view.draw: canvas')
         love.graphics.draw(self.canvas, x, y)
     else
         error('attempting to draw view not loaded')
