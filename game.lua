@@ -28,6 +28,11 @@ function game.maps.current()
     return game.maps[game.maps._current]
 end
 
+function game.event.handlers.redraw()
+    log.debug('drawing')
+    game.draw()
+end
+
 function game.event.push(event, args)
     local state = game.state:top()
     log.debug('game.event.push: ' .. state .. ': ' .. event)
@@ -91,6 +96,7 @@ function game.load()
     game.views.Map:load()
 
     game.state:push('Menu')
+    game.event.push('Menu', 'redraw')
 
     game.models.Map:load(game.maps.current())
     game.views.Map:update()

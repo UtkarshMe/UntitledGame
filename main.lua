@@ -30,4 +30,5 @@ end
 
 function love.textinput(text)
     game.event.push('textinput', { text })
+    game.event.push('redraw')
 end
