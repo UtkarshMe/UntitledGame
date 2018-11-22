@@ -5,8 +5,8 @@ local utf8 = require('utf8')
 local controller = { name = 'Console' }
 
 function controller.submit(model)
-    globals.game.state:push('Map')
-    globals.game.event.push('input', { model:getValue() })
+    globals.game.event.push('scriptSubmit', { model:getValue() })
+    globals.game.event.push('run')
 end
 
 function controller.update(model, args)

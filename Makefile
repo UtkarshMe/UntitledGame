@@ -4,6 +4,7 @@ SOURCES         = main.lua \
                   game.lua \
                   util.lua \
                   log.lua \
+                  parser.lua \
                   models/* \
                   views/* \
                   controllers/* \

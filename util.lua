@@ -1,6 +1,7 @@
 -- util.lua
 
 local util = {}
+local parser = require('parser')
 
 function util.newEventHandler(parent, model)
     local obj = parent or require('controllers.Default')
@@ -11,6 +12,24 @@ function util.newEventHandler(parent, model)
             love.event.push(event, args)
         end
     end
+end
+
+function util.newParsedScript(rawScript)
+    local parsed = {
+        commands = parser.parse(rawScript),
+    }
+    parsed.current = parsed.commands.top
+    parsed.nextCommand = function()
+        local command = parsed.current
+        if command then
+            parsed.current = command.next
+            return command.value
+        else
+            return nil
+        end
+    end
+
+    return parsed
 end
 
 return util

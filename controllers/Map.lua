@@ -13,39 +13,35 @@ function controller.execute(model, args)
     end
 end
 
-function controller.input(model, args)
-    model.script = unpack(args)
-    model.nextToken = string.gmatch(model.script or '', "[%a_]+")
-end
-
-function controller.step(model)
-    local command = model.nextToken()
+function controller.step()
+    local command = globals.game.script.parsed.nextCommand()
     if command then
         log.debug('Map.step: ' .. command)
         globals.game.event.push('execute', { command })
+        if globals.game.animateMap then
+            globals.game.animateMap(function()
+                globals.game.event.push('step')
+            end)
+        else
+            globals.game.event.push('step')
+        end
     else
         log.debug('Map.step: End of script')
-        globals.game.event.push('endGame')
+        globals.game.event.push('checkWin')
     end
 end
 
-function controller.endGame(model)
+function controller.checkWin(model)
     local user = model:getPosition('user')
     local exit = model:getPosition('exit')
 
+    globals.game.event.clear()
+
     if user[1] == exit[1] and user[2] == exit[2] then
-        globals.game.event.push('win')
+        globals.game.event.push('endGame', { 'win' })
     else
-        globals.game.event.push('lose')
+        globals.game.event.push('endGame', { 'lose' })
     end
-end
-
-function controller.win()
-    log.info('User won')
-end
-
-function controller.lose()
-    log.info('User lost')
 end
 
 controller.keyinput = default.keyinput
