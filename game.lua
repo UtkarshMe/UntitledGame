@@ -125,9 +125,10 @@ function game.load()
         love.event.quit()  -- TODO
     end)
 
-    game.views.Menu:load()
-    game.views.Console:load()
-    game.views.Map:load()
+    local width, height = love.graphics.getPixelDimensions()
+    game.views.Menu:load(width, height)
+    game.views.Console:load(width, height)
+    game.views.Map:load(width, height)
 
     game.state:push('Menu')
 end
