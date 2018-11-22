@@ -35,3 +35,9 @@ end
 function love.mousepressed(x, y, button)
     game.event.push('mousepress', { x, y, button })
 end
+
+function love.resize(width, height)
+    for _,view in pairs(game.views) do
+        view:load(width, height)
+    end
+end
