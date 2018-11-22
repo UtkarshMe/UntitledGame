@@ -1,6 +1,7 @@
 -- controllers/Map.lua : Controllers for Map model
 
 local log = require('log')
+local default = require('controllers.Default')
 local controller = { name = 'Map' }
 
 function controller.execute(model, args)
@@ -46,5 +47,8 @@ end
 function controller.lose()
     log.info('User lost')
 end
+
+controller.keyinput = default.keyinput
+controller.textinput = default.textinput
 
 return controller
