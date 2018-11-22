@@ -13,6 +13,7 @@ local game = {
     event = {
         handlers = love.handlers,
         poll = love.event.poll,
+        clear = love.event.clear,
     },
     maps = {
         _current = 1,
@@ -40,10 +41,10 @@ end
 
 function game.event.handlers.nextMap()
     local current = game.maps._current + 1
-    if not game.maps[current] then
-        love.event.quit()
-    else
+    if game.maps[current] then
         game.maps._current = current
+    else
+        love.event.quit()
     end
 end
 
@@ -52,6 +53,7 @@ function game.event.handlers.resetMap()
 end
 
 function game.event.handlers.scriptSubmit(args)
+    log.debug('game.scriptSubmit: ' .. args[1])
     game.script.raw = args[1]
     game.script.parsed = util.newParsedScript(args[1])
 end
@@ -62,6 +64,23 @@ function game.event.handlers.run()
     game.event.push('step')
     game.event.push('step')
     game.event.push('step')
+end
+
+function game.event.handlers.startGame()
+    log.debug('game.startGame: starting new game')
+    game.models.Map:load(game.maps.current())
+    game.views.Map:update()
+    game.state:push('Console')
+end
+
+function game.event.handlers.endGame(args)
+    log.debug('game.endGame: we ' .. args[1])
+    if args[1] == 'win' then
+        game.event.push('nextMap')
+        game.event.push('startGame')
+    else
+        game.state:pop()
+    end
 end
 
 function game.loadComponent(component)
@@ -84,7 +103,8 @@ function game.load()
 
     game.models.Menu:addItem('New Game', function()
         log.debug('Menu: new game')
-        game.state:push('Console')
+        game.event.push('resetMap')
+        game.event.push('startGame')
     end)
     game.models.Menu:addItem('Load Game', function()
         log.debug('Menu: load game')
@@ -108,9 +128,6 @@ function game.load()
     game.views.Map:load()
 
     game.state:push('Menu')
-
-    game.models.Map:load(game.maps.current())
-    game.views.Map:update()
 end
 
 function game.draw()

@@ -20,27 +20,21 @@ function controller.step()
         globals.game.event.push('execute', { command })
     else
         log.debug('Map.step: End of script')
-        globals.game.event.push('endGame')
+        globals.game.event.push('checkWin')
     end
 end
 
-function controller.endGame(model)
+function controller.checkWin(model)
     local user = model:getPosition('user')
     local exit = model:getPosition('exit')
 
+    globals.game.event.clear()
+
     if user[1] == exit[1] and user[2] == exit[2] then
-        globals.game.event.push('win')
+        globals.game.event.push('endGame', { 'win' })
     else
-        globals.game.event.push('lose')
+        globals.game.event.push('endGame', { 'lose' })
     end
-end
-
-function controller.win()
-    log.info('User won')
-end
-
-function controller.lose()
-    log.info('User lost')
 end
 
 controller.keyinput = default.keyinput
