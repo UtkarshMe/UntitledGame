@@ -17,6 +17,10 @@ local game = {
     maps = {
         _current = 1,
     },
+    script = {
+        raw = '',
+        parsed = {},
+    },
 }
 
 function game.event.add(stateName, event, cb)
@@ -45,6 +49,19 @@ end
 
 function game.event.handlers.resetMap()
     game.maps._current = 1
+end
+
+function game.event.handlers.scriptSubmit(args)
+    game.script.raw = args[1]
+    game.script.parsed = util.newParsedScript(args[1])
+end
+
+function game.event.handlers.run()
+    game.event.push('step')
+    game.event.push('step')
+    game.event.push('step')
+    game.event.push('step')
+    game.event.push('step')
 end
 
 function game.loadComponent(component)

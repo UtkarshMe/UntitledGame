@@ -13,13 +13,8 @@ function controller.execute(model, args)
     end
 end
 
-function controller.input(model, args)
-    model.script = unpack(args)
-    model.nextToken = string.gmatch(model.script or '', "[%a_]+")
-end
-
-function controller.step(model)
-    local command = model.nextToken()
+function controller.step()
+    local command = globals.game.script.parsed.nextCommand()
     if command then
         log.debug('Map.step: ' .. command)
         globals.game.event.push('execute', { command })
