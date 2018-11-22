@@ -46,5 +46,6 @@ end
 
 controller.keyinput = default.keyinput
 controller.textinput = default.textinput
+controller.mousepress = default.mousepress
 
 return controller

@@ -1,6 +1,7 @@
 -- controllers/Menu.lua : Controllers for Menu model
 
 local log = require('log')
+local default = require('controllers.Default')
 local controller = { name = 'Menu' }
 
 function controller.activate(model, args)
@@ -33,8 +34,7 @@ function controller.keyinput(model, args)
     model:setHighlighted(highlighted)
 end
 
-function controller.textinput()
-    -- nop
-end
+controller.mousepress = default.mousepress
+controller.textinput = default.textinput
 
 return controller

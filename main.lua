@@ -31,3 +31,7 @@ end
 function love.textinput(text)
     game.event.push('textinput', { text })
 end
+
+function love.mousepressed(x, y, button)
+    game.event.push('mousepress', { x, y, button })
+end

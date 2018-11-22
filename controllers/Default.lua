@@ -11,4 +11,8 @@ function controllers.textinput(args)
     log.info('default.inputkey: ' .. (args[1] or ''))
 end
 
+function controllers.mousepress(args)
+    log.info('default.mousepress: ' .. (args[3] or ''))
+end
+
 return controllers

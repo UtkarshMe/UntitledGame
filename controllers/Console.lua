@@ -2,6 +2,7 @@
 
 local log = require('log')
 local utf8 = require('utf8')
+local default = require('controllers.Default')
 local controller = { name = 'Console' }
 
 function controller.submit(model)
@@ -38,5 +39,7 @@ function controller.keyinput(model, args)
         globals.game.event.push('submit')
     end
 end
+
+controller.mousepress = default.mousepress
 
 return controller
