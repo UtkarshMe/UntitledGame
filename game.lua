@@ -2,6 +2,9 @@
 
 local log = require('log')
 local util = require('util')
+local maps = {
+    'forward',
+}
 
 local game = {
     state = require('lib.Stack'):new(),
@@ -11,6 +14,9 @@ local game = {
         handlers = love.handlers,
         poll = love.event.poll,
     },
+    maps = {
+        _current = 1,
+    },
 }
 
 function game.event.add(stateName, event, cb)
@@ -18,10 +24,27 @@ function game.event.add(stateName, event, cb)
     game.event.handlers[stateName][event] = cb
 end
 
+function game.maps.current()
+    return game.maps[game.maps._current]
+end
+
 function game.event.push(event, args)
     local state = game.state:top()
     log.debug('game.event.push: ' .. state .. ': ' .. event)
     love.event.push(state, event, args)
+end
+
+function game.event.handlers.nextMap()
+    local current = game.maps._current + 1
+    if not game.maps[current] then
+        love.event.quit()
+    else
+        game.maps._current = current
+    end
+end
+
+function game.event.handlers.resetMap()
+    game.maps._current = 1
 end
 
 function game.loadComponent(component)
@@ -37,6 +60,10 @@ function game.load()
     game.loadComponent('Menu')
     game.loadComponent('Console')
     game.loadComponent('Map')
+
+    for i=1,#maps do
+        game.maps[i] = require('data.maps.' .. maps[i])
+    end
 
     game.models.Menu:addItem('New Game', function()
         log.debug('Menu: new game')
@@ -65,7 +92,7 @@ function game.load()
 
     game.state:push('Menu')
 
-    game.models.Map:load('forward')
+    game.models.Map:load(game.maps.current())
     game.views.Map:update()
 end
 

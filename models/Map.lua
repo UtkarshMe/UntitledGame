@@ -2,10 +2,9 @@
 
 local Model = require('models/Model')
 local model = Model:new()
-local mapPrefix = 'data/maps/'
 
-function model:load(mapName)
-    self.map = require(mapPrefix .. mapName)
+function model:load(map)
+    self.map = map
     self.script = nil
 end
 
