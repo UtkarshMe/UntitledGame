@@ -60,6 +60,11 @@ function game.event.handlers.scriptSubmit(args)
     log.debug('game.scriptSubmit: ' .. args[1])
     game.script.raw = args[1]
     game.script.parsed = util.newParsedScript(args[1])
+    if not game.script.parsed then
+        game.event.push('scriptError')
+    else
+        game.event.push('run')
+    end
 end
 
 function game.event.handlers.run()

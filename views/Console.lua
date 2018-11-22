@@ -102,6 +102,8 @@ function view:draw(x, y)
             self.console.y + self.console.padding.y,
             self.console.width - 2 * self.console.padding.y)
 
+    love.graphics.print(self._parent:getError() or '')
+
 end
 
 return view

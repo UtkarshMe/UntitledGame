@@ -6,7 +6,7 @@ local controller = { name = 'Map' }
 
 function controller.execute(model, args)
     local command = unpack(args)
-    if command == 'forward' then
+    if command.value == 'forward' then
         local user = model:getPosition('user')
         user[2] = user[2] - 1
         model:setPosition('user', user)
@@ -16,7 +16,7 @@ end
 function controller.step()
     local command = globals.game.script.parsed.nextCommand()
     if command then
-        log.debug('Map.step: ' .. command)
+        log.debug('Map.step: ' .. command.value)
         globals.game.event.push('execute', { command })
     else
         log.debug('Map.step: End of script')

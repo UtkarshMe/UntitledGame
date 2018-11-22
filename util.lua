@@ -15,15 +15,19 @@ function util.newEventHandler(parent, model)
 end
 
 function util.newParsedScript(rawScript)
+    local parsedCommands = parser.parse(rawScript)
+    if not parsedCommands then
+        return nil
+    end
     local parsed = {
-        commands = parser.parse(rawScript),
+        commands = parsedCommands
     }
     parsed.current = parsed.commands.top
     parsed.nextCommand = function()
         local command = parsed.current
         if command then
             parsed.current = command.next
-            return command.value
+            return command
         else
             return nil
         end

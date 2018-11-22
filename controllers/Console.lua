@@ -6,8 +6,12 @@ local default = require('controllers.Default')
 local controller = { name = 'Console' }
 
 function controller.submit(model)
+    model:setError()
     globals.game.event.push('scriptSubmit', { model:getValue() })
-    globals.game.event.push('run')
+end
+
+function controller.scriptError(model)
+    model:setError('Error in script')
 end
 
 function controller.update(model, args)

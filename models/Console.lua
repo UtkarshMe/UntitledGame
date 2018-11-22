@@ -16,4 +16,12 @@ function model:getValue()
     return self.value or ''
 end
 
+function model:setError(err)
+    self.err = err
+end
+
+function model:getError()
+    return self.err
+end
+
 return model
