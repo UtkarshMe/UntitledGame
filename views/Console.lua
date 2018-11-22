@@ -93,13 +93,14 @@ function view:draw(x, y)
     love.graphics.draw(self.canvas, x, y)
     love.graphics.setBackgroundColor(0, 0, 0, 1)
     love.graphics.setFont(self.console.font)
-    love.graphics.print(
+    love.graphics.printf(
             {
                 self.console.textColor, self._parent:getValue(),
                 self.console.cursorColor, '_',
             },
             self.console.x + self.console.padding.x,
-            self.console.y + self.console.padding.y)
+            self.console.y + self.console.padding.y,
+            self.console.width - 2 * self.console.padding.y)
 
 end
 
