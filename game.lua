@@ -10,6 +10,7 @@ local game = {
     state = require('lib.Stack'):new(),
     models = {},
     views = {},
+    controllers = {},
     event = {
         handlers = love.handlers,
         poll = love.event.poll,
@@ -26,7 +27,7 @@ local game = {
 
 function game.event.add(stateName, event, cb)
     log.debug('game.event.add: ' .. stateName .. ': ' .. event)
-    game.event.handlers[stateName][event] = cb
+    game.controllers[stateName][event] = cb
 end
 
 function game.maps.current()
@@ -85,8 +86,9 @@ function game.loadComponent(component)
     local model = require('models.' .. component):new({ name = component })
     game.models[component] = model
     game.views[component] = require('views.' .. component):new(model)
+    game.controllers[component] = require('controllers.' .. component)
     game.event.handlers[component] = util.newEventHandler(
-            require('controllers.' .. component), model)
+            game.controllers[component], model)
 end
 
 function game.animateMap(callback)
