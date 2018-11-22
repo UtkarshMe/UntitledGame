@@ -8,6 +8,7 @@ function model:updateValue(newValue)
 end
 
 function model:appendValue(value)
+    value:match "^%s*(.-)%s*$"  -- trim
     self.value = (self.value or '') .. value
 end
 
