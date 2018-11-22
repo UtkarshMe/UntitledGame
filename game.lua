@@ -59,10 +59,7 @@ function game.event.handlers.scriptSubmit(args)
 end
 
 function game.event.handlers.run()
-    game.event.push('step')
-    game.event.push('step')
-    game.event.push('step')
-    game.event.push('step')
+    globals.game.state:push('Map')
     game.event.push('step')
 end
 
@@ -90,6 +87,11 @@ function game.loadComponent(component)
     game.views[component] = require('views.' .. component):new(model)
     game.event.handlers[component] = util.newEventHandler(
             require('controllers.' .. component), model)
+end
+
+function game.animateMap(callback)
+    log.info('Animating map')
+    callback()
 end
 
 function game.load()
