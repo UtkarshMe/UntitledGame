@@ -36,7 +36,7 @@ function controller.keyinput(model, args)
         model:updateValue(value)
 
     elseif key == 'return' then  -- FIXME
-        globals.game.event.push('submit')
+        model:appendValue('\n')
     end
 end
 
