@@ -27,3 +27,7 @@ function love.keypressed(key, unicode)
         game.event.push('keyinput', { key, unicode })
     end
 end
+
+function love.textinput(text)
+    game.event.push('textinput', { text })
+end
