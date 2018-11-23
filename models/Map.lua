@@ -5,7 +5,12 @@ local model = Model:new()
 
 function model:load(map)
     self.map = map
+    self.map.positions.user = {unpack(self.map.positions.start)}
     self.script = nil
+end
+
+function model:reset()
+    self.map.positions.user = {unpack(self.map.positions.start)}
 end
 
 function model:getSize()

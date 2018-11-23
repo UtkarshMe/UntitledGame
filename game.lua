@@ -82,6 +82,7 @@ function game.event.handlers.endGame(args)
         game.event.push('nextMap')
         game.event.push('startGame')
     else
+        game.models.Map:reset()
         game.state:pop()
     end
 end

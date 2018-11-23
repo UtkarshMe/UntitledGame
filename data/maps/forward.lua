@@ -18,7 +18,7 @@ local Map = {
         { 1, 1, 3, 1, 1 },
     },
     positions = {
-        user = { 3, 5 },
+        start = { 3, 5 },
         exit = { 3, 1 },
     },
     commands = {
