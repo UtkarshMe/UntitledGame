@@ -23,6 +23,9 @@ local game = {
         raw = '',
         parsed = {},
     },
+    intervals = {
+        mapStep = 1,
+    },
 }
 
 function game.event.add(stateName, event, cb)
@@ -60,8 +63,9 @@ function game.event.handlers.scriptSubmit(args)
 end
 
 function game.event.handlers.run()
+    globals.timer.reset('map')
     globals.game.state:push('Map')
-    game.event.push('step')
+    globals.timer.start('map')
 end
 
 function game.event.handlers.startGame()
@@ -73,6 +77,7 @@ end
 
 function game.event.handlers.endGame(args)
     log.debug('game.endGame: we ' .. args[1])
+    globals.timer.stop('map')
     if args[1] == 'win' then
         game.event.push('nextMap')
         game.event.push('startGame')
@@ -133,10 +138,20 @@ function game.load()
     game.views.Map:load(width, height)
 
     game.state:push('Menu')
+
+    globals.timer.track('map')
 end
 
 function game.draw()
     game.views[game.state:top()]:draw()
+end
+
+function game.update()
+    if game.state:top() == 'Map'
+            and globals.timer.getTime('map') > game.intervals.mapStep then
+        globals.timer.reset('map')
+        game.event.push('step')
+    end
 end
 
 return game

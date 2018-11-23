@@ -20,6 +20,7 @@ end
 -- Put game strategy here
 function love.update(timeSinceUpdate)
     globals.timer.update(timeSinceUpdate)
+    game.update()
 end
 
 function love.keypressed(key, unicode)
