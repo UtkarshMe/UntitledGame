@@ -18,13 +18,6 @@ function controller.step()
     if command then
         log.debug('Map.step: ' .. command)
         globals.game.event.push('execute', { command })
-        if globals.game.animateMap then
-            globals.game.animateMap(function()
-                globals.game.event.push('step')
-            end)
-        else
-            globals.game.event.push('step')
-        end
     else
         log.debug('Map.step: End of script')
         globals.game.event.push('checkWin')
