@@ -1,5 +1,6 @@
 globals = {}
 globals.logLevel = 'debug'
+globals.timer = require('timer')
 
 local game = require('game'); globals.game = game
 
@@ -17,7 +18,8 @@ end
 
 -- Function to manipulate game state at each frame
 -- Put game strategy here
-function love.update()
+function love.update(timeSinceUpdate)
+    globals.timer.update(timeSinceUpdate)
 end
 
 function love.keypressed(key, unicode)
