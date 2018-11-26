@@ -1,12 +1,14 @@
 globals = {}
 globals.logLevel = 'debug'
 globals.timer = require('timer')
+globals.assets = require('assets')
 
 local game = require('game'); globals.game = game
 
 -- Function to initialize game state
 -- Put config parsing, state initialization etc. here
 function love.load()
+    globals.assets.load()
     game.load()
 end
 
@@ -42,5 +44,8 @@ end
 function love.resize(width, height)
     for _,view in pairs(game.views) do
         view:load(width, height)
+        if view.update then
+            view:update()
+        end
     end
 end
