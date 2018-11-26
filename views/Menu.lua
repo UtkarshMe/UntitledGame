@@ -6,17 +6,17 @@ local MenuItem = require('views.MenuItem')
 local view = View:new()
 
 function view:load(width, height, props)
-    self.width = width or 1000
-    self.height = height or 1000
+    self.width = math.floor(width) or 1000
+    self.height = math.floor(height) or 1000
     self._props = props
 
     for _,item in ipairs(self._parent.items) do
         log.debug('menu.view.load: load item: ' .. item.label)
         item.view = MenuItem:new(item)
-        item.view:load(self.width / 5, self.height / 5)
+        item.view:load(self.width / 5, self.height / 5, props)
     end
 
-    self.canvas = love.graphics.newCanvas(width, height)
+    self.canvas = love.graphics.newCanvas(self.width, self.height)
     log.debug('menu.view.load: set canvas')
     love.graphics.setCanvas(self.canvas)
         log.debug('menu.view.load: generate canvas')

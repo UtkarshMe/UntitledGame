@@ -5,10 +5,10 @@ local util = require('views.util')
 local view = View:new()
 
 function view:load(width, height, props)
-    self.width = width or 1000
-    self.height = height or 1000
+    self.width = math.floor(width) or 1000
+    self.height = math.floor(height) or 1000
     self._props = props
-    self.canvas = love.graphics.newCanvas(width, height)
+    self.canvas = love.graphics.newCanvas(self.width, self.height)
 
     self.console = {
         x = 50,

@@ -3,8 +3,12 @@
 local View = require('views.View')
 local view = View:new()
 
-function view:load()
-    self.canvas = love.graphics.newCanvas()
+function view:load(width, height, props)
+    self.width = math.floor(width) or 1000
+    self.height = math.floor(height) or 1000
+    self._props = props
+    self.canvas = love.graphics.newCanvas(self.width, self.height)
+
     love.graphics.setCanvas(self.canvas)
         love.graphics.clear()
         love.graphics.setBlendMode('alpha')

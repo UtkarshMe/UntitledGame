@@ -4,8 +4,8 @@ local View = require('views.View')
 local view = View:new()
 
 function view:load(width, height, props)
-    self.width = width
-    self.height = height
+    self.width = math.floor(width) or 1000
+    self.height = math.floor(height) or 1000
     self._props = props
 
     self.canvas = love.graphics.newCanvas(self.width, self.height)
