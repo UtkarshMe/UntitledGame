@@ -44,5 +44,8 @@ end
 function love.resize(width, height)
     for _,view in pairs(game.views) do
         view:load(width, height)
+        if view.update then
+            view:update()
+        end
     end
 end
