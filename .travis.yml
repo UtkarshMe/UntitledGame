@@ -25,3 +25,4 @@ deploy:
         on:
             repo: UtkarshMe/UntitledGame
             branch: export_win
+    draft: true
