@@ -11,8 +11,9 @@ SOURCES         = main.lua \
                   controllers/* \
                   lib/* \
                   data/*
+LOVE_WIN_SOURCE = love-11.1.0-win32
 
-.PHONY: all run love lint package test
+.PHONY: all run love lint package test packagewin
 
 all:
 
@@ -35,3 +36,17 @@ functionaltest:
 
 package:
 	zip -9 -r ${PROJECT_NAME}.love ${SOURCES}
+
+packagewin: ${LOVE_WIN_SOURCE} package
+	cd ${LOVE_WIN_SOURCE} \
+		&& cat ./love.exe ../${PROJECT_NAME}.love > ${PROJECT_NAME}.exe \
+		&& rm -rf changes.txt lovec.exe love.ico readme.txt love.exe
+	mv ${LOVE_WIN_SOURCE} ${PROJECT_NAME}_win
+	zip -r ${PROJECT_NAME}_win ${PROJECT_NAME}_win
+
+
+${LOVE_WIN_SOURCE}:
+	wget https://bitbucket.org/rude/love/downloads/love-11.1-win32.zip
+	unzip love-11.1-win32.zip
+	cd ${LOVE_WIN_SOURCE}
+

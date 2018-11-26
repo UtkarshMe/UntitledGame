@@ -15,3 +15,13 @@ script:
 after_success:
     - luacov
     - bash <(curl -s https://codecov.io/bash)
+    - make packagewin
+
+deploy:
+    provider: releases
+    api_key:
+        secure: S9oKCGm8+zQDbYmLSEBAm+HJzHAQjp3EhpWg9MV2UIwKmPitH2nbl+L0PaC/zykpgZOxSTx45NOhNCZJK4CP9Uw8ka9fUCSwtCkhRIZSKBgMgzf4noD6/e/iiOcdQKbHgnNUfdpmC1hsHwSuO5TWqHsSmFtqmItBCPgbgHU6JrYecRmMUc1Fe0htioe6JjWA+bt9Sjni61dczx6d4AArdjrlK/oMZ4wLLDwnN6642iQqGr9t0cBM1O2N53Dcs/hT2lVRCVgpu8r4vnFWJtkPPa83l7EbyxLt80+vb1f+4jpDfRO8SIWrvOSNSIchz2fYcHqOJjB/FLUOrMFOztN+MdeFAeP1OJtPW6d3syp2y/usm1M7D8FHFpoQ+2dWagyF9c6DVl1aXCZCjTaYnvbGttKi0MjWXLGOsME5ZQ4m79YsyXlKrBJB5oq9OZ8t7MA7S/W7u40t56QhB5b1Oi2+CDOr/KZNZzt1P89AqHTuDxtAByyQ+uigsIGJl2wx/uUVkqThFjojKX1+/Lthss5S+4MGe3sD8ZpqxDD7Cv5dp/uq7mXFd+vz3jYmUbwY+LnQSixxDtvc5sUkx9/ZpHmoGdmB4E2/lLqpB1/9RJFwiPZQDbmZ0Zv9taP5jWZeqQvT3dikGdGjIp1Es4jRD2l+ryd/KjMopjXTw7xpyqh4Zvo=
+        file: UntitledGame_win.zip
+        on:
+            repo: UtkarshMe/UntitledGame
+    draft: true
