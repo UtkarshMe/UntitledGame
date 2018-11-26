@@ -5,6 +5,7 @@ SOURCES         = main.lua \
                   util.lua \
                   log.lua \
                   parser.lua \
+                  timer.lua \
                   models/* \
                   views/* \
                   controllers/* \
