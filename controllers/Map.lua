@@ -1,8 +1,23 @@
 -- controllers/Map.lua : Controllers for Map model
 
+local utf8 = require('utf8')
 local log = require('log')
 local default = require('controllers.Default')
 local controller = { name = 'Map' }
+
+function controller.submit(model)
+    model.console:setError()
+    globals.game.models.Map:reset()
+    globals.game.event.push('scriptSubmit', { model.console:getValue() })
+end
+
+function controller.scriptError(model)
+    model.console:setError('Error in script')
+end
+
+function controller.update(model, args)
+    model.console:updateValue(args[1])
+end
 
 function controller.execute(model, args)
     local command = unpack(args)
@@ -37,8 +52,33 @@ function controller.checkWin(model)
     end
 end
 
-controller.keyinput = default.keyinput
-controller.textinput = default.textinput
+function controller.keyinput(model, args)
+    -- TODO: Implement way to move cursor
+    local key = args[1] or 'empty'
+    log.debug('Console.keyinput: ' .. key)
+
+    if key == 'backspace' then
+        local value = model.console:getValue()
+        local byteoffset = utf8.offset(value, -1)
+
+        if byteoffset then
+            -- remove the last UTF-8 character.
+            -- string.sub operates on bytes rather than UTF-8 characters, so we
+            -- couldn't do string.sub(value, 1, -2).
+            value = string.sub(value, 1, byteoffset - 1)
+        end
+        model.console:updateValue(value)
+
+    elseif key == 'return' then
+        --model.console:appendValue('\n')
+        globals.game.event.push('submit') -- FIXME
+    end
+end
+
+function controller.textinput(model, args)
+    model.console:appendValue(args[1])
+end
+
 controller.mousepress = default.mousepress
 
 return controller

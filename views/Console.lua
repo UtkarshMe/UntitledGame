@@ -1,4 +1,4 @@
--- views/Console.lua : View for Console model
+-- views/Console.lua : View for Console model (now obsolete)
 
 local View = require('views.View')
 local util = require('views.util')

@@ -15,11 +15,12 @@ function view:load(width, height, props)
         height = math.floor(self.height * 0.75),
     }
 
-    self.scriptArea = {
+    self.console = {
         x = 0,
         y = self.mapArea.x + self.mapArea.height,
         width = self.width,
         height = math.floor(self.height * 0.25),
+        font = love.graphics.newFont(20),
     }
 
 end
@@ -61,8 +62,9 @@ function view:draw()
             userOnMap.y)
 
     -- script console
-    love.graphics.printf(globals.game.script.raw, self.scriptArea.x,
-            self.scriptArea.y, self.scriptArea.width)
+    love.graphics.setFont(self.console.font)
+    love.graphics.printf(self._parent.console:getValue(), self.console.x,
+            self.console.y, self.console.width)
 end
 
 return view

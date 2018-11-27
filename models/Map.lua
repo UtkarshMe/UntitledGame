@@ -6,7 +6,6 @@ local model = Model:new()
 function model:load(map)
     self.map = map
     self.map.positions.user = {unpack(self.map.positions.start)}
-    self.script = nil
 end
 
 function model:reset()
@@ -57,5 +56,7 @@ function model:setPosition(thing, position)
         self.map.positions[thing] = position
     end
 end
+
+model.console = require('models.Console'):new()
 
 return model

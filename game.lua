@@ -69,7 +69,6 @@ end
 
 function game.event.handlers.run()
     globals.timer.reset('map')
-    globals.game.state:push('Map')
     globals.timer.start('map')
 end
 
@@ -77,7 +76,7 @@ function game.event.handlers.startGame()
     log.debug('game.startGame: starting new game')
     game.models.Map:load(game.maps.current())
     game.views.Map:update()
-    game.state:push('Console')
+    game.state:push('Map')
 end
 
 function game.event.handlers.endGame(args)
@@ -88,7 +87,6 @@ function game.event.handlers.endGame(args)
         game.event.push('startGame')
     else
         game.models.Map:reset()
-        game.state:pop()
     end
 end
 
@@ -109,7 +107,6 @@ end
 
 function game.load()
     game.loadComponent('Menu')
-    game.loadComponent('Console')
     game.loadComponent('Map')
 
     for i=1,#maps do
@@ -140,7 +137,6 @@ function game.load()
 
     local width, height = love.graphics.getPixelDimensions()
     game.views.Menu:load(width, height)
-    game.views.Console:load(width, height)
     game.views.Map:load(width, height)
 
     game.state:push('Menu')
