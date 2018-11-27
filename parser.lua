@@ -66,13 +66,11 @@ local function parse(rawScript)
             command = ifcond.exit
 
         else -- unknown token
-            error('ukn tokn')
             return nil
         end
     end
 
     if ifStack:top() then
-        error('stk not empty')
         return nil
     end
 
