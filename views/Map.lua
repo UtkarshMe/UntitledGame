@@ -23,6 +23,7 @@ function view:load(width, height, props)
         font = love.graphics.newFont(20),
     }
 
+    globals.timer.track('userTile')
 end
 
 function view:update()
@@ -41,6 +42,7 @@ function view:update()
             end
         end
     love.graphics.setCanvas()  -- reset the canvas
+    globals.timer.start('userTile')
 end
 
 function view:draw()
@@ -58,8 +60,18 @@ function view:draw()
     love.graphics.draw(self.mapArea.canvas, 0, 0)
 
     -- user tile
-    love.graphics.draw(globals.assets.images.user.tile, userOnMap.x,
-            userOnMap.y)
+    local timer = math.floor(2 * globals.timer.getTime('userTile'))
+    if timer == 0 then
+        love.graphics.draw(globals.assets.images.user.tile, userOnMap.x,
+                userOnMap.y - 1)
+    elseif timer == 1 then
+        love.graphics.draw(globals.assets.images.user.tile, userOnMap.x,
+                userOnMap.y)
+    elseif timer == 2 then
+        love.graphics.draw(globals.assets.images.user.tile, userOnMap.x,
+                userOnMap.y)
+        globals.timer.reset('userTile')
+    end
 
     -- script console
     love.graphics.setFont(self.console.font)
