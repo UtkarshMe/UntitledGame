@@ -11,7 +11,8 @@ SOURCES         = main.lua \
                   views/* \
                   controllers/* \
                   lib/* \
-                  data/*
+                  data/* \
+                  assets/*
 LOVE_WIN_SOURCE = love-11.1.0-win32
 
 .PHONY: all run love lint package test packagewin
