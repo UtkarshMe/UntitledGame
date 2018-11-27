@@ -2,6 +2,9 @@
 [![Build Status](https://travis-ci.org/UtkarshMe/UntitledGame.svg?branch=master)](https://travis-ci.org/UtkarshMe/UntitledGame)
 [![codecov](https://codecov.io/gh/UtkarshMe/UntitledGame/branch/master/graph/badge.svg)](https://codecov.io/gh/UtkarshMe/UntitledGame)
 
+### Download
+The game is available to download for window or as source code from the
+[releases](https://github.com/UtkarshMe/UntitledGame/releases/latest) page.
 
 ### Dependencies
 - [Love2d](https://love2d.org/): as game engine
