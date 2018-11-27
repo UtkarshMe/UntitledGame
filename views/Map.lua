@@ -11,14 +11,14 @@ function view:load(width, height, props)
     self.mapArea = {
         x = 0,
         y = 0,
-        width = self.width,
-        height = math.floor(self.height * 0.75),
+        width = globals.assets.tile.width * 15,
+        height = globals.assets.tile.height * 15,
     }
 
     self.console = {
-        x = 0,
-        y = self.mapArea.x + self.mapArea.height,
-        width = self.width,
+        x = self.mapArea.x + self.mapArea.width,
+        y = 0,
+        width = self.width - self.mapArea.width,
         height = math.floor(self.height * 0.25),
         font = love.graphics.newFont(20),
     }
@@ -58,7 +58,7 @@ function view:draw()
     love.graphics.setBackgroundColor(0, 0, 0, 1)
     love.graphics.setColor(1, 1, 1, 1)
     love.graphics.clear()
-    love.graphics.draw(self.mapArea.canvas, 0, 0)
+    love.graphics.draw(self.mapArea.canvas)
 
     if timer == 0 then
         love.graphics.draw(globals.assets.images.user.tile, userOnMap.x,
