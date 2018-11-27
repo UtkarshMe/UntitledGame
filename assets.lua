@@ -46,8 +46,7 @@ function assets.load()
         user = {
             tileset = tileset.terrain,
             tiles = {
-                { 00, 00, 832, 1024 - 32, 32},  -- wooden stairs
-                --{ 00, 00, 736, 160, 32 },  -- grass
+                { 00, 00, 832, 1024 - 32, 32},  -- mushroom
             },
         },
     }
