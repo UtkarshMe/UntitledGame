@@ -29,7 +29,10 @@ function controller.execute(model, args)
 end
 
 function controller.step()
-    local command = globals.game.script.parsed.nextCommand()
+    local command = nil
+    if globals.game.script.parsed then
+        command = globals.game.script.parsed.nextCommand()
+    end
     if command then
         log.debug('Map.step: ' .. command.value)
         globals.game.event.push('execute', { command })
