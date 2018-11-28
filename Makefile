@@ -1,15 +1,15 @@
 PROJECT_NAME    = UntitledGame
 SOURCES         = main.lua \
-                  conf.lua \
-                  game.lua \
-                  util.lua \
-                  log.lua \
-                  parser.lua \
-                  timer.lua \
-                  assets.lua \
-                  models/* \
-                  views/* \
-                  controllers/* \
+                  src/conf.lua \
+                  src/game.lua \
+                  src/util.lua \
+                  src/log.lua \
+                  src/parser.lua \
+                  src/timer.lua \
+                  src/assets.lua \
+                  src/models/* \
+                  src/views/* \
+                  src/controllers/* \
                   lib/* \
                   data/* \
                   assets/*

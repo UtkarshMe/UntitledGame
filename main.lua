@@ -1,9 +1,9 @@
 globals = {}
 globals.logLevel = 'debug'
-globals.timer = require('timer')
-globals.assets = require('assets')
+globals.timer = require('src.timer')
+globals.assets = require('src.assets')
 
-local game = require('game'); globals.game = game
+local game = require('src.game'); globals.game = game
 
 -- Function to initialize game state
 -- Put config parsing, state initialization etc. here
