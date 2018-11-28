@@ -42,8 +42,11 @@ function model:setTile(x, y, tile)
 end
 
 function model:isTileMovable(x, y)
-    return table_has({'grass', 'exit'},
-            self:getComponent(self:getTile(x, y)))
+    return (x > 0 and y > 0
+            and x <= self.map.size.width
+            and y <= self.map.size.height
+            and table_has({'grass', 'exit'},
+                    self:getComponent(self:getTile(x, y))))
 end
 
 function model:getComponent(id)
