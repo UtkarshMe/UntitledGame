@@ -45,6 +45,10 @@ function view:load(width, height, props)
         canvas = love.graphics.newCanvas(),
         text = 'story not found',
         animate = animate:new({ speed = 10, loop = false }),
+        padding = {
+            x = 20,
+            y = 20,
+        },
     }
 
     self.console = {
@@ -54,6 +58,10 @@ function view:load(width, height, props)
         height = math.floor(self.height * 0.25),
         font = love.graphics.newFont(20),
         cursor = animate:new(),
+        padding = {
+            x = 50,
+            y = 50,
+        },
     }
 end
 
@@ -98,19 +106,26 @@ function view:draw()
 
     love.graphics.setBackgroundColor(0, 0, 0, 1)
     love.graphics.setColor(1, 1, 1, 1)
-    love.graphics.draw(self.mapPeak.canvas, self.mapPeak.x, self.mapPeak.y)
 
+    -- map peak
+    love.graphics.draw(self.mapPeak.canvas, self.mapPeak.x, self.mapPeak.y)
     self.mapPeak.user.animate:jump(globals.assets.images.user.tile,
             userOnMap.x, userOnMap.y)
 
-    love.graphics.setColor(1, 1, 1, 1)
+    -- story
+    love.graphics.setFont(self.console.font)
     love.graphics.printf(self.story.animate:teletype(self.story.text),
-            self.story.x, self.story.y, self.story.width, self.story.align)
+            self.story.x + self.story.padding.x,
+            self.story.y + self.story.padding.y,
+            self.story.width, self.story.align)
 
+    -- console
     love.graphics.setFont(self.console.font)
     love.graphics.printf(self._parent.console:getValue()
             .. self.console.cursor:blinkText('_'),
-            self.console.x, self.console.y, self.console.width)
+            self.console.x + self.console.padding.x,
+            self.console.y + self.console.padding.y,
+            self.console.width)
 end
 
 return view
