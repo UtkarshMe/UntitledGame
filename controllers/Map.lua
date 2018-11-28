@@ -21,21 +21,54 @@ end
 
 function controller.execute(model, args)
     local command = unpack(args)
+    if not command then
+        return
+    end
+    local user = model:getPosition('user')
+    log.debug('execute: ' .. command.value)
     if command.value == 'forward' then
-        local user = model:getPosition('user')
         user[2] = user[2] - 1
+    elseif command.value == 'backward' then
+        user[2] = user[2] + 1
+    elseif command.value == 'left' then
+        user[1] = user[1] - 1
+    elseif command.value == 'right' then
+        user[1] = user[1] + 1
+
+    elseif command.value == 'ifstart' then
+        local start = model:getPosition('start')
+        if start[1] == user[1] and start[2] == user[2] then
+            log.debug('setCommand then')
+            globals.game.script.parsed.setCommand(command.thenBranch)
+            globals.game.event.push('step')
+            return
+        else
+            log.debug('setCommand else')
+            globals.game.script.parsed.setCommand(command.elseBranch)
+            globals.game.event.push('step')
+            return
+        end
+    elseif command.value == 'then'
+            or command.value == 'else'
+            or command.value == 'endif' then
+        globals.game.event.push('step')
+    end
+
+    if model:isTileMovable(user[1], user[2]) then
         model:setPosition('user', user)
+    else
+        globals.game.event.push('step')
     end
 end
 
-function controller.step()
+function controller.step(model)
     local command = nil
     if globals.game.script.parsed then
         command = globals.game.script.parsed.nextCommand()
     end
     if command then
         log.debug('Map.step: ' .. command.value)
-        globals.game.event.push('execute', { command })
+        controller.execute(model, { command })
     else
         log.debug('Map.step: End of script')
         globals.game.event.push('checkWin')

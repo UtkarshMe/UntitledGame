@@ -33,6 +33,10 @@ function util.newParsedScript(rawScript)
         end
     end
 
+    parsed.setCommand = function(command)
+        parsed.current = command
+    end
+
     return parsed
 end
 

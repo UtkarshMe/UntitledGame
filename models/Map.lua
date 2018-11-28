@@ -3,6 +3,15 @@
 local Model = require('models/Model')
 local model = Model:new()
 
+local function table_has(table, value)
+    for _, val in ipairs(table) do
+        if val == value then
+            return true
+        end
+    end
+    return false
+end
+
 function model:load(map)
     self.map = map
     self.map.positions.user = {unpack(self.map.positions.start)}
@@ -32,6 +41,11 @@ function model:setTile(x, y, tile)
     end
 end
 
+function model:isTileMovable(x, y)
+    return table_has({'grass', 'exit'},
+            self:getComponent(self:getTile(x, y)))
+end
+
 function model:getComponent(id)
     return self.map.components[id]
 end
@@ -40,7 +54,7 @@ function model:getPosition(thing)
     if not self.map.positions[thing] then
         error('Map.setUserPosition: no thing "' .. thing .. '"')
     else
-        return self.map.positions[thing]
+        return { self.map.positions[thing][1], self.map.positions[thing][2] }
     end
 end
 

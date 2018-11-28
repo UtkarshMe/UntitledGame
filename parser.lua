@@ -30,7 +30,7 @@ local function parse(rawScript)
             break
         end
 
-        if table_has({ 'forward', 'backward' }, token) then
+        if table_has({ 'forward', 'backward', 'left', 'right' }, token) then
             command = newCommand(token, command)
             commands[current] = command
             current = current + 1
@@ -41,26 +41,35 @@ local function parse(rawScript)
             current = current + 1
 
             command.exit = newCommand('endif', command)
-            commands[current] = command
+            commands[current] = command.exit
+            current = current + 1
+
+            command.elseBranch = newCommand('else', nil)
+            commands[current] = command.elseBranch
+            command.elseBranch.next = command.exit
+            current = current + 1
+
+            command.thenBranch = newCommand('then', nil)
+            commands[current] = command.thenBranch
+            command.thenBranch.next = command.exit
             current = current + 1
 
             ifStack:push(command)
-            command.thenBranch = newCommand('then', nil)
             command = command.thenBranch
-            commands[current] = command
-            current = current + 1
 
         elseif token == 'else' then
             local ifcond = ifStack:top()
+            if not ifcond then
+                return nil
+            end
             command.next = ifcond.exit
-
-            ifcond.elseBranch = newCommand('else', nil)
             command = ifcond.elseBranch
-            commands[current] = command
-            current = current + 1
 
         elseif token == 'endif' then
             local ifcond = ifStack:top()
+            if not ifcond then
+                return nil
+            end
             ifStack:pop()
             command.next = ifcond.exit
             command = ifcond.exit
