@@ -83,4 +83,10 @@ function animate:teletype(text)
     return string.sub(text, 1, frame - 1)
 end
 
+function animate:loop(callback)
+    if self.animating and getFrame(self) == self.options.frames then
+        callback()
+    end
+end
+
 return animate
