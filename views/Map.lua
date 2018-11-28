@@ -1,5 +1,6 @@
 -- views/Map.lua : View for Map model
 
+local animate = require('animate')
 local View = require('views.View')
 local view = View:new()
 
@@ -93,17 +94,10 @@ end
 function view:draw()
     local user = self._parent:getPosition('user')
     local userOnMap = {
-        x = (user[1] - self.mapPeak.tiles.offset.x)
-                * globals.assets.tile.width + self.mapPeak.x,
-        y = (user[2] - self.mapPeak.tiles.offset.y)
-                * globals.assets.tile.height + self.mapPeak.y,
-    }
-    local timer = math.floor(2 * globals.timer.getTime(self.timer))
-    local cursor = '_'
-
-    local offset = {
-        x = userOnMap.x - (self.mapPeak.width / 2),
-        y = userOnMap.y - (self.mapPeak.height / 2),
+        x = (user[1] - self.mapPeak.tiles.offset.x) * globals.assets.tile.width
+                + self.mapPeak.x,
+        y = (user[2] - self.mapPeak.tiles.offset.y) * globals.assets.tile.height
+                + self.mapPeak.y,
     }
 
     love.graphics.setBackgroundColor(0, 0, 0, 1)
@@ -111,25 +105,12 @@ function view:draw()
     love.graphics.draw(self.story.canvas, self.story.x, self.story.y)
     love.graphics.draw(self.mapPeak.canvas, self.mapPeak.x, self.mapPeak.y)
 
-    if timer == 0 then
-        love.graphics.draw(globals.assets.images.user.tile, userOnMap.x,
-                userOnMap.y - 1)
-        cursor = '_'
-    elseif timer == 1 then
-        love.graphics.draw(globals.assets.images.user.tile, userOnMap.x,
-                userOnMap.y)
-        cursor = ''
-    elseif timer == 2 then
-        love.graphics.draw(globals.assets.images.user.tile, userOnMap.x,
-                userOnMap.y)
-        cursor = '_'
+    animate.jump(globals.assets.images.user.tile, userOnMap.x, userOnMap.y,
+            { speed = 2, factor = 2 })
 
-        globals.timer.reset(self.timer)
-    end
-
-    -- script console
     love.graphics.setFont(self.console.font)
-    love.graphics.printf(self._parent.console:getValue() .. cursor,
+    love.graphics.printf(self._parent.console:getValue()
+            .. animate.blinkText('_'),
             self.console.x, self.console.y, self.console.width)
 end
 
