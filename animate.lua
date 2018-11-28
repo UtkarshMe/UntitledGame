@@ -14,40 +14,72 @@ local function parseOptions(options)
     options.speed  = options.speed  or 1
     options.timer  = options.timer  or animate.timer
     options.factor = options.factor or 10
-    options.frame  = options.frames or 2
+    options.frames = options.frames or 2
+
+    if options.loop == nil then
+        options.loop = true
+    end
 
     return options
 end
 
-local function getFrame(options)
-    local time = math.floor(options.speed
-            * globals.timer.getTime(options.timer))
-
-    return (time % options.frames) + 1
+local function getFrame(animatable)
+    if animatable.animating then
+        return (math.floor(animatable.options.speed
+                    * globals.timer.getTime(animatable.options.timer))
+                % animatable.options.frames ) + 1
+    else
+        return animatable.options.frames
+    end
 end
 
-function animate.jump(drawable, x, y, options)
-    options = parseOptions(options)
-    options.frames = options.frames or 2
-    local frame = getFrame(options)
+function animate:new(options)
+    local obj = {
+        animating = true,
+        options = parseOptions(options),
+    }
+
+    self.__index = self
+    return setmetatable(obj, self)
+end
+
+function animate.reset()
+    globals.timer.reset(animate.timer)
+end
+
+function animate:jump(drawable, x, y)
+    local frame = getFrame(self)
 
     if frame == 1 then
-        love.graphics.draw(drawable, x, y - options.factor)
+        love.graphics.draw(drawable, x, y - self.options.factor)
     elseif frame == 2 then
         love.graphics.draw(drawable, x, y)
     end
 end
 
-function animate.blinkText(text, options)
-    options = parseOptions(options)
-    options.frames = options.frames or 2
-    local frame = getFrame(options)
+function animate:blinkText(text)
+    local frame = getFrame(self)
 
     if frame == 1 then
         return text
     elseif frame == 2 then
         return ''
     end
+end
+
+function animate:teletype(text)
+    self.options.frames = string.len(text) + 1
+    local frame = getFrame(self)
+
+    if frame == self.options.frames - 1 then
+        if not self.options.loop then
+            self.animating = false
+        end
+    else
+        return string.sub(text, 1, frame - 1)
+    end
+
+    return text
 end
 
 return animate

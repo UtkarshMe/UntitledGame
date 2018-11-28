@@ -27,6 +27,9 @@ function view:load(width, height, props)
             width = 0,
             height = 0,
         },
+        user = {
+            animate = animate:new({ speed = 2, factor = 2 }),
+        },
     }
     self.mapPeak.width = self.mapPeak.tiles.x * globals.assets.tile.width
     self.mapPeak.height = self.mapPeak.tiles.y * globals.assets.tile.height
@@ -39,7 +42,9 @@ function view:load(width, height, props)
         width = self.width - self.mapPeak.x - self.mapPeak.width,
         height = self.mapPeak.height,
         align = 'left',
-        canvas = love.graphics.newCanvas()
+        canvas = love.graphics.newCanvas(),
+        text = 'story not found',
+        animate = animate:new({ speed = 10, loop = false }),
     }
 
     self.console = {
@@ -48,6 +53,7 @@ function view:load(width, height, props)
         width = self.width,
         height = math.floor(self.height * 0.25),
         font = love.graphics.newFont(20),
+        cursor = animate:new(),
     }
 
     self.timer = 'mapview'
@@ -67,14 +73,6 @@ function view:update()
     self.mapPeak.data.height = globals.assets.tile.height * size.height
 
     love.graphics.setColor(1, 1, 1, 1)
-    love.graphics.setCanvas(self.story.canvas)
-        love.graphics.setFont(self.console.font)
-        love.graphics.clear()
-        love.graphics.printf(self._parent.map.story, 0, 0, self.story.width,
-                self.story.align)
-    love.graphics.setCanvas()
-
-    love.graphics.setColor(1, 1, 1, 1)
     love.graphics.setCanvas(self.mapPeak.canvas)
         for x=self.mapPeak.tiles.offset.x,size.width do
             for y=self.mapPeak.tiles.offset.y,size.height do
@@ -88,6 +86,9 @@ function view:update()
             end
         end
     love.graphics.setCanvas()  -- reset the canvas
+
+    self.story.text = self._parent:getMap().story or self.story.text
+
     globals.timer.start(self.timer)
 end
 
@@ -102,15 +103,18 @@ function view:draw()
 
     love.graphics.setBackgroundColor(0, 0, 0, 1)
     love.graphics.setColor(1, 1, 1, 1)
-    love.graphics.draw(self.story.canvas, self.story.x, self.story.y)
     love.graphics.draw(self.mapPeak.canvas, self.mapPeak.x, self.mapPeak.y)
 
-    animate.jump(globals.assets.images.user.tile, userOnMap.x, userOnMap.y,
-            { speed = 2, factor = 2 })
+    self.mapPeak.user.animate:jump(globals.assets.images.user.tile,
+            userOnMap.x, userOnMap.y)
+
+    love.graphics.setColor(1, 1, 1, 1)
+    love.graphics.printf(self.story.animate:teletype(self.story.text),
+            self.story.x, self.story.y, self.story.width, self.story.align)
 
     love.graphics.setFont(self.console.font)
     love.graphics.printf(self._parent.console:getValue()
-            .. animate.blinkText('_'),
+            .. self.console.cursor:blinkText('_'),
             self.console.x, self.console.y, self.console.width)
 end
 
