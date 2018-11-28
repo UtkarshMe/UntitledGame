@@ -24,10 +24,20 @@ local function parseOptions(options)
 end
 
 local function getFrame(animatable)
+    -- if we're not animating anymore, just return the last frame
     if animatable.animating then
-        return (math.floor(animatable.options.speed
+        local frame =
+                (math.floor(animatable.options.speed
                     * globals.timer.getTime(animatable.options.timer))
                 % animatable.options.frames ) + 1
+
+        -- if at the last frame of the loop set not animating anymore if
+        -- looping is disabled
+        if animatable.options.loop == false
+                and frame == animatable.options.frames then
+            animatable.animating = false
+        end
+        return frame
     else
         return animatable.options.frames
     end
@@ -61,25 +71,16 @@ function animate:blinkText(text)
     local frame = getFrame(self)
 
     if frame == 1 then
-        return text
-    elseif frame == 2 then
         return ''
+    elseif frame == 2 then
+        return text
     end
 end
 
 function animate:teletype(text)
     self.options.frames = string.len(text) + 1
     local frame = getFrame(self)
-
-    if frame == self.options.frames - 1 then
-        if not self.options.loop then
-            self.animating = false
-        end
-    else
-        return string.sub(text, 1, frame - 1)
-    end
-
-    return text
+    return string.sub(text, 1, frame - 1)
 end
 
 return animate
