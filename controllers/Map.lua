@@ -35,6 +35,13 @@ function controller.execute(model, args)
     elseif command.value == 'right' then
         user[1] = user[1] + 1
 
+    elseif command.value == 'strike' then
+        local artifact = model:getArtifact(user[1], user[2] - 1)
+        if artifact then
+            model:setTile(user[1], user[2] - 1, artifact)
+            globals.game.views.Map:update()
+        end
+
     elseif command.value == 'ifstart' then
         local start = model:getPosition('start')
         if start[1] == user[1] and start[2] == user[2] then

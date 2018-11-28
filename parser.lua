@@ -30,7 +30,8 @@ local function parse(rawScript)
             break
         end
 
-        if table_has({ 'forward', 'backward', 'left', 'right' }, token) then
+        if table_has({ 'forward', 'backward', 'left', 'right', 'strike' },
+                token) then
             command = newCommand(token, command)
             commands[current] = command
             current = current + 1

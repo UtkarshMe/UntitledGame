@@ -24,6 +24,9 @@ local Map = {
         { 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1 },
         { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
     },
+    artifacts = {
+        default = 3,
+    },
     positions = {
         start = { 7, 6 },
         exit = { 7, 1 },
@@ -32,5 +35,9 @@ local Map = {
         'forward',
     },
 }
+
+-- example to add artifacts:
+--  Map.artifacts[3] = {}
+--  Map.artifacts[3][4] = 1
 
 return Map

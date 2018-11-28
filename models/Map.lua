@@ -12,13 +12,14 @@ local function table_has(table, value)
     return false
 end
 
-function model:load(map)
-    self.map = map
+function model:load(mapName)
+    self.mapName = mapName
+    self.map = dofile('data/maps/' .. mapName .. '.lua')
     self.map.positions.user = {unpack(self.map.positions.start)}
 end
 
 function model:reset()
-    self.map.positions.user = {unpack(self.map.positions.start)}
+    self:load(self.mapName)
 end
 
 function model:getSize()
@@ -34,19 +35,44 @@ function model:getTile(x, y)
 end
 
 function model:setTile(x, y, tile)
-    if self.map.components[tile] then
+    if self:isTileOnMap(x, y) and self.map.components[tile] then
         self.map.data[y][x] = tile
     else
         error('No component for tile id "' .. tile .. '"')
     end
 end
 
-function model:isTileMovable(x, y)
+function model:isTileOnMap(x, y)
     return (x > 0 and y > 0
             and x <= self.map.size.width
-            and y <= self.map.size.height
+            and y <= self.map.size.height)
+end
+
+function model:isTileMovable(x, y)
+    return (self:isTileOnMap(x, y)
             and table_has({'grass', 'exit'},
                     self:getComponent(self:getTile(x, y))))
+end
+
+function model:isTileBreakable(x, y)
+    return (self:isTileOnMap(x, y)
+            and table_has({'box_closed'},
+                    self:getComponent(self:getTile(x, y))))
+end
+
+function model:hasArtifact(x, y)
+    return (self.isTileOnMap(x, y) and self.map.artifacts[y][x])
+end
+
+function model:getArtifact(x, y)
+    if self:isTileOnMap(x, y) then
+        if self.map.artifacts[y] and self.map.artifacts[y][x] then
+            return self.map.artifacts[y][x]
+        else
+            return self.map.artifacts.default
+        end
+    end
+    return nil
 end
 
 function model:getComponent(id)

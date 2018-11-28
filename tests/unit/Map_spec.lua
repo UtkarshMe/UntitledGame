@@ -1,5 +1,4 @@
 local map = nil
-local dummy = require('data.maps.dummy')
 
 describe('Map', function()
     setup(function()
@@ -7,7 +6,7 @@ describe('Map', function()
     end)
 
     before_each(function()
-        map:load(dummy)
+        map:load('dummy')
     end)
 
     after_each(function()

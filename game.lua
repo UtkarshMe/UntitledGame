@@ -34,7 +34,7 @@ function game.event.add(stateName, event, cb)
 end
 
 function game.maps.current()
-    return game.maps[game.maps._current]
+    return maps[game.maps._current]
 end
 
 function game.event.push(event, args)
@@ -45,7 +45,7 @@ end
 
 function game.event.handlers.nextMap()
     local current = game.maps._current + 1
-    if game.maps[current] then
+    if maps[current] then
         game.maps._current = current
     else
         love.event.quit()
@@ -73,7 +73,7 @@ function game.event.handlers.run()
 end
 
 function game.event.handlers.startGame()
-    log.debug('game.startGame: starting new game')
+    log.debug('game.startGame: starting new game: ' .. game.maps.current())
     game.models.Map:load(game.maps.current())
     game.views.Map:update()
     game.state:push('Map')
@@ -87,6 +87,7 @@ function game.event.handlers.endGame(args)
         game.event.push('startGame')
     else
         game.models.Map:reset()
+        game.views.Map:update()
     end
 end
 
@@ -108,10 +109,6 @@ end
 function game.load()
     game.loadComponent('Menu')
     game.loadComponent('Map')
-
-    for i=1,#maps do
-        game.maps[i] = require('data.maps.' .. maps[i])
-    end
 
     game.models.Menu:addItem('New Game', function()
         log.debug('Menu: new game')
