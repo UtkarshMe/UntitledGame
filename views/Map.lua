@@ -55,9 +55,6 @@ function view:load(width, height, props)
         font = love.graphics.newFont(20),
         cursor = animate:new(),
     }
-
-    self.timer = 'mapview'
-    globals.timer.track(self.timer)
 end
 
 function view:update()
@@ -88,8 +85,6 @@ function view:update()
     love.graphics.setCanvas()  -- reset the canvas
 
     self.story.text = self._parent:getMap().story or self.story.text
-
-    globals.timer.start(self.timer)
 end
 
 function view:draw()
