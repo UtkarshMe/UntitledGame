@@ -34,6 +34,7 @@ local Map = {
     commands = {
         'forward',
     },
+    story = "you gotta move forward!",
 }
 
 -- example to add artifacts:
