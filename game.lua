@@ -24,7 +24,7 @@ local game = {
         parsed = {},
     },
     intervals = {
-        mapStep = 1,
+        mapStep = 0.2,
     },
 }
 
