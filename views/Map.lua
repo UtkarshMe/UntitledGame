@@ -112,6 +112,7 @@ function view:load(width, height, props)
                 {
                     label = 'Run',
                     callback = function()
+                        self._parent.console:setMessage('Running...')
                         globals.game.event.push('submit')
                     end
                 },
@@ -147,7 +148,7 @@ function view:load(width, height, props)
         },
         message = {
             font = globals.assets.fonts.default,
-            color = { 1, 1, 1, 1 },
+            color = { 1, 0, 0, 1 },
             margin = {
                 x = 0,
                 y = 10,
@@ -308,9 +309,9 @@ function view:draw()
     }
 
     love.graphics.setBackgroundColor(0, 0, 0, 1)
-    love.graphics.setColor(1, 1, 1, 1)
 
     -- map peak
+    love.graphics.setColor(1, 1, 1, 1)
     love.graphics.draw(self.mapPeak.canvas,
             self.mapPeak.x + self.mapPeak.padding.x,
             self.mapPeak.y + self.mapPeak.padding.y)
@@ -320,12 +321,14 @@ function view:draw()
 
     -- story
     love.graphics.setFont(self.story.font)
+    love.graphics.setColor(1, 1, 1, 1)
     love.graphics.printf(self.story.animate:teletype(self.story.text),
             self.story.x + self.story.padding.x,
             self.story.y + self.story.padding.y,
             self.story.width, self.story.align)
 
     -- console
+    love.graphics.setColor(1, 1, 1, 1)
     love.graphics.draw(self.console.canvas, self.console.x, self.console.y)
 
     -- message
@@ -336,6 +339,7 @@ function view:draw()
             self.console.message.y,
             self.console.message.width)
 
+
     -- editor area
     local cursor = self._parent.console:getCursor()
     local value = self._parent.console:getValue()
@@ -345,11 +349,11 @@ function view:draw()
         string.sub(value, cursor + 1) or ''
     }
 
-
     -- print the text in background color and then print cursor. this ensures
     -- the cursor is printed at the position even for non-monospaced fonts. and
     -- then, print the whole thing in text color
     love.graphics.setFont(self.console.editor.input.font)
+    love.graphics.setColor(1, 1, 1, 1)
     love.graphics.printf({
                 self.console.editor.color, text[1],
                 self.console.editor.input.color.cursor,

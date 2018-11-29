@@ -5,14 +5,13 @@ local default = require('controllers.Default')
 local controller = { name = 'Map' }
 
 function controller.submit(model)
-    model.console:setMessage()
     globals.game.models.Map:reset()
     globals.game.event.push('scriptSubmit', { model.console:getValue() })
 end
 
 function controller.scriptError(model)
     love.audio.play(globals.assets.sounds.message)
-    model.console:setMessage('Error in script')
+    model.console:setMessage('There is some error in your commands.')
 end
 
 function controller.update(model, args)
@@ -90,8 +89,10 @@ function controller.checkWin(model)
     globals.game.event.clear()
 
     if user[1] == exit[1] and user[2] == exit[2] then
+        model.console:setMessage('You won! On to the next level.')
         globals.game.event.push('endGame', { 'win' })
     else
+        model.console:setMessage('You lost! Tweak your commands and try again.')
         globals.game.event.push('endGame', { 'lose' })
     end
 end
