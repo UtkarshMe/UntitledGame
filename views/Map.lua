@@ -69,7 +69,7 @@ function view:load(width, height, props)
             y = 0,
             width = self.width - 200,
             height = self.height - self.mapPeak.y - self.mapPeak.height,
-            cursor = animate:new(),
+            cursor = animate:new({ speed = 2 }),
             color = { 0.20, 0.20, 0.20, 1 },
             padding = {
                 x = 20,
