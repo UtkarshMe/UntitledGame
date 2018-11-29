@@ -124,7 +124,7 @@ function view:load(width, height, props)
                 {
                     label = 'Quit',
                     callback = function()
-                        love.event.quit()
+                        globals.game.state:pop()
                     end
                 },
             },

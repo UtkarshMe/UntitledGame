@@ -76,6 +76,7 @@ end
 function game.event.handlers.startGame()
     log.debug('game.startGame: starting new game: ' .. game.maps.current())
     game.models.Map:load(game.maps.current())
+    game.models.Map.console:updateValue('')
     game.views.Map:update()
     animate.reset()
     game.state:push('Map')
