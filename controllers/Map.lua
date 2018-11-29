@@ -1,6 +1,5 @@
 -- controllers/Map.lua : Controllers for Map model
 
-local utf8 = require('utf8')
 local log = require('log')
 local default = require('controllers.Default')
 local controller = { name = 'Map' }
@@ -101,16 +100,22 @@ function controller.keyinput(model, args)
     log.debug('Console.keyinput: ' .. key)
 
     if key == 'backspace' then
-        local value = model.console:getValue()
-        local byteoffset = utf8.offset(value, -1)
+        model.console:backspace()
 
-        if byteoffset then
-            -- remove the last UTF-8 character.
-            -- string.sub operates on bytes rather than UTF-8 characters, so we
-            -- couldn't do string.sub(value, 1, -2).
-            value = string.sub(value, 1, byteoffset - 1)
-        end
-        model.console:updateValue(value)
+    elseif key == 'left' then
+        model.console:moveCursor(-1)
+
+    elseif key == 'right' then
+        model.console:moveCursor(1)
+
+    elseif key == 'home' then
+        model.console:moveCursor(-string.len(model.console:getValue()))
+
+    elseif key == 'end' then
+        model.console:moveCursor(string.len(model.console:getValue()))
+
+    elseif key == 'tab' then
+        model.console:appendValue('\t')
 
     elseif key == 'return' then
         model.console:appendValue('\n')

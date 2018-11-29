@@ -8,6 +8,7 @@ The game is available to download for Windows or as source code from the
 
 ### Dependencies
 - [Love2d](https://love2d.org/): as game engine
+- utf8: for user input (`luarocks install utf8`)
 
 ##### Dev dependencies
 - luacheck: for lint checking
