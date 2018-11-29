@@ -70,10 +70,10 @@ function view:load(width, height, props)
             width = self.width - 200,
             height = self.height - self.mapPeak.y - self.mapPeak.height,
             cursor = animate:new(),
+            color = { 0.20, 0.20, 0.20, 1 },
             padding = {
                 x = 20,
                 y = 20,
-                color = { 0.20, 0.20, 0.20, 1 },
             },
             margin = {
                 x = 10,
@@ -97,6 +97,7 @@ function view:load(width, height, props)
                 font = love.graphics.newFont(20),
                 color = {
                     text = { 1, 1, 1, 1 },
+                    cursor = { 0.7, 0.7, 0.7, 1 },
                 },
             },
         },
@@ -190,7 +191,7 @@ function view:load(width, height, props)
                     - 2 * self.console.editor.border.outer.height)
 
         -- padded area
-        love.graphics.setColor(self.console.editor.padding.color)
+        love.graphics.setColor(self.console.editor.color)
         love.graphics.rectangle('fill', self.console.editor.border.width,
                 self.console.editor.border.height,
                 self.console.editor.width
@@ -245,6 +246,8 @@ function view:load(width, height, props)
             end
         end
     end)
+
+    love.keyboard.setKeyRepeat(true)  -- allow pressing down keys
 end
 
 function view:update()
@@ -307,10 +310,35 @@ function view:draw()
     love.graphics.draw(self.console.canvas, self.console.x, self.console.y)
 
     -- editor area
+    local cursor = self._parent.console:getCursor()
+    local value = self._parent.console:getValue()
+    local text = {
+        string.sub(value, 1, cursor) or '',
+        '_',
+        string.sub(value, cursor + 1) or ''
+    }
+
+
+    -- print the text in background color and then print cursor. this ensures
+    -- the cursor is printed at the position even for non-monospaced fonts. and
+    -- then, print the whole thing in text color
     love.graphics.setFont(self.console.editor.input.font)
-    love.graphics.setColor(self.console.editor.input.color.text)
-    love.graphics.printf(self._parent.console:getValue()
-            .. self.console.editor.cursor:blinkText('_'),
+    love.graphics.printf({
+                self.console.editor.color, text[1],
+                self.console.editor.input.color.cursor,
+                    self.console.editor.cursor:blinkText('_')
+            },
+            self.console.x + self.console.editor.x
+                + self.console.editor.margin.x
+                + self.console.editor.padding.x,
+            self.console.y + self.console.editor.y
+                + self.console.editor.margin.y
+                + self.console.editor.padding.y,
+            self.console.editor.width)
+    love.graphics.printf({
+                self.console.editor.input.color.text,
+                text[1] .. text[3]
+            },
             self.console.x + self.console.editor.x
                 + self.console.editor.margin.x
                 + self.console.editor.padding.x,
