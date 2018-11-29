@@ -116,7 +116,7 @@ function view:load(width, height, props)
                 {
                     label = 'Reset',
                     callback = function()
-                        print('this is unfinished')
+                        globals.game.event.push('update', { '' })
                     end
                 },
             },
