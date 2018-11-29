@@ -113,8 +113,7 @@ function controller.keyinput(model, args)
         model.console:updateValue(value)
 
     elseif key == 'return' then
-        --model.console:appendValue('\n')
-        globals.game.event.push('submit') -- FIXME
+        model.console:appendValue('\n')
     end
 end
 

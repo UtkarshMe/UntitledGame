@@ -1,6 +1,7 @@
 -- game.lua : A state machine to control the game
 
 local log = require('log')
+local animate = require('animate')
 local util = require('util')
 local maps = {
     'forward',
@@ -76,6 +77,7 @@ function game.event.handlers.startGame()
     log.debug('game.startGame: starting new game: ' .. game.maps.current())
     game.models.Map:load(game.maps.current())
     game.views.Map:update()
+    animate.reset()
     game.state:push('Map')
 end
 
@@ -136,6 +138,7 @@ function game.load()
     game.views.Menu:load(width, height)
     game.views.Map:load(width, height)
 
+    animate.reset()
     game.state:push('Menu')
 
     globals.timer.track('map')

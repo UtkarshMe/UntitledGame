@@ -49,6 +49,8 @@ function love.textinput(text)
 end
 
 function love.mousepressed(x, y, button)
+    x = (x - globals.view.x) / globals.view.scale
+    y = (y - globals.view.y) / globals.view.scale
     game.event.push('mousepress', { x, y, button })
 end
 
