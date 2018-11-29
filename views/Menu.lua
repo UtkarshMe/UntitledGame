@@ -16,7 +16,7 @@ function view:load(width, height, props)
         banner = {
             text = globals.conf.getMeta().name,
             color = { 1, 1, 1, 1 },
-            font = love.graphics.newFont(70),
+            font = globals.assets.fonts.banner,
             x = 0,
             y = 100,
             width = self.width,

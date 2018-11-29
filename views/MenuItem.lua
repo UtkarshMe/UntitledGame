@@ -21,7 +21,7 @@ function view:load(width, height, props)
 
     self.item.normal = {
         text = {
-            font = love.graphics.newFont(20),
+            font = globals.assets.fonts.menu,
             color = { 1, 1, 1, 1 },
             align = 'center',
         },
@@ -38,7 +38,7 @@ function view:load(width, height, props)
 
     self.item.hover = {
         text = {
-            font = love.graphics.newFont(20),
+            font = globals.assets.fonts.menu,
             color = { 1, 1, 1, 1 },
             align = 'center',
         },
