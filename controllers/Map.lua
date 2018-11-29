@@ -5,14 +5,14 @@ local default = require('controllers.Default')
 local controller = { name = 'Map' }
 
 function controller.submit(model)
-    model.console:setError()
+    model.console:setMessage()
     globals.game.models.Map:reset()
     globals.game.event.push('scriptSubmit', { model.console:getValue() })
 end
 
 function controller.scriptError(model)
     love.audio.play(globals.assets.sounds.message)
-    model.console:setError('Error in script')
+    model.console:setMessage('Error in script')
 end
 
 function controller.update(model, args)

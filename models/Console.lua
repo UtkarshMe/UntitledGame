@@ -2,7 +2,13 @@
 
 local utf8 = require('utf8')
 local Model = require('models.Model')
-local model = Model:new({ name = "Console", value = '', cursor = 1})
+local model = Model:new(
+    {
+        name = "Console",
+        value = '',
+        cursor = 1,
+        message = '',
+    })
 
 function model:updateValue(newValue)
     self.value = newValue or ''
@@ -19,12 +25,12 @@ function model:getValue()
     return self.value or ''
 end
 
-function model:setError(err)
-    self.err = err
+function model:setMessage(message)
+    self.message = message or ''
 end
 
-function model:getError()
-    return self.err
+function model:getMessage()
+    return self.message
 end
 
 function model:moveCursor(delta)

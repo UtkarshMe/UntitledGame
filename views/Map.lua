@@ -118,12 +118,14 @@ function view:load(width, height, props)
                 {
                     label = 'Reset',
                     callback = function()
+                        self._parent.console:setMessage()
                         globals.game.event.push('update', { '' })
                     end
                 },
                 {
                     label = 'Quit',
                     callback = function()
+                        self._parent.console:setMessage()
                         globals.game.state:pop()
                     end
                 },
@@ -143,6 +145,14 @@ function view:load(width, height, props)
             },
             align = 'center',
         },
+        message = {
+            font = globals.assets.fonts.default,
+            color = { 1, 1, 1, 1 },
+            margin = {
+                x = 0,
+                y = 10,
+            },
+        },
     }
 
     self.console.editor.width = self.console.editor.width
@@ -155,6 +165,12 @@ function view:load(width, height, props)
     self.console.buttons.y = self.console.editor.y
     self.console.buttons.width = self.width - self.console.editor.width
             - 2 * self.console.editor.margin.x
+
+    self.console.message.x = self.console.buttons.x
+    self.console.message.y = self.console.y + self.console.message.margin.y
+            + #self.console.buttons.data
+                * (self.console.buttons.height + self.console.buttons.margin.y)
+    self.console.message.width = self.console.buttons.width
 
     self.console.canvas = love.graphics.newCanvas(self.console.width,
             self.console.height)
@@ -311,6 +327,14 @@ function view:draw()
 
     -- console
     love.graphics.draw(self.console.canvas, self.console.x, self.console.y)
+
+    -- message
+    love.graphics.setFont(self.console.message.font)
+    love.graphics.setColor(self.console.message.color)
+    love.graphics.printf(self._parent.console:getMessage(),
+            self.console.message.x,
+            self.console.message.y,
+            self.console.message.width)
 
     -- editor area
     local cursor = self._parent.console:getCursor()
