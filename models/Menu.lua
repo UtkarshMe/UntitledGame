@@ -35,7 +35,9 @@ function model:setHighlighted(id)
     if id > #self.items or id < 1 then
         error('Menu.setHighlighted: id out of bounds')
     else
+        self.items[self.highlighted].isHighlighted = false
         self.highlighted = id
+        self.items[self.highlighted].isHighlighted = true
     end
 end
 

@@ -117,22 +117,11 @@ function game.load()
         game.event.push('resetMap')
         game.event.push('startGame')
     end)
-    game.models.Menu:addItem('Load Game', function()
-        log.debug('Menu: load game')
-        love.event.quit()  -- TODO
-    end)
-    game.models.Menu:addItem('Save Game', function()
-        log.debug('Menu: save game')
-        love.event.quit()  -- TODO
-    end)
-    game.models.Menu:addItem('How to Play', function()
-        log.debug('Menu: how to play')
-        love.event.quit()  -- TODO
-    end)
     game.models.Menu:addItem('Exit', function()
         log.debug('Menu: quit')
         love.event.quit()  -- TODO
     end)
+    game.models.Menu:setHighlighted(1)
 
     local width, height = love.graphics.getPixelDimensions()
     game.views.Menu:load(width, height)
