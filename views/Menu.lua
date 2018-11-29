@@ -13,6 +13,15 @@ function view:load(width, height, props)
     self.menu = {
         width = 400,
         height = 400,
+        banner = {
+            text = globals.conf.getMeta().name,
+            color = { 1, 1, 1, 1 },
+            font = love.graphics.newFont(70),
+            x = 0,
+            y = 100,
+            width = self.width,
+            height = 200,
+        },
         items = {
             x = 100,
             y = 150,
@@ -51,10 +60,18 @@ function view:load(width, height, props)
         end
     end)
 
-    self.canvas = love.graphics.newCanvas(self.width, self.height)
+    self.menu.banner.canvas = love.graphics.newCanvas(self.menu.banner.width,
+            self.menu.banner.height)
+    love.graphics.setColor(1, 1, 1, 1)
+    love.graphics.setCanvas(self.menu.banner.canvas)
+        love.graphics.setColor(self.menu.banner.color)
+        love.graphics.setFont(self.menu.banner.font)
+        love.graphics.printf(self.menu.banner.text, self.menu.banner.x,
+                self.menu.banner.y, self.menu.banner.width, 'center')
+    love.graphics.setCanvas()
 end
 
-function view:draw(x, y)
+function view:draw()
     local mouse = {}
     mouse.x, mouse.y = globals.scaleMouse(love.mouse.getPosition())
 
@@ -66,14 +83,12 @@ function view:draw(x, y)
 
     love.graphics.setBackgroundColor(0, 0, 0, 1)  -- only in top level
     love.graphics.clear()
-    if self.canvas then
-        love.graphics.draw(self.canvas, x, y)
-        love.graphics.setColor(1, 1, 1, 1)
-        for i,item in ipairs(self._parent.items) do
-            item.view:draw(self.menu.items.data[i].x, self.menu.items.data[i].y)
-        end
-    else
-        error('attempting to draw view not loaded')
+
+    love.graphics.setColor(1, 1, 1, 1)
+    love.graphics.draw(self.menu.banner.canvas, 0, 0)
+
+    for i,item in ipairs(self._parent.items) do
+        item.view:draw(self.menu.items.data[i].x, self.menu.items.data[i].y)
     end
 end
 

@@ -2,6 +2,7 @@ globals = {}
 globals.logLevel = 'debug'
 globals.timer = require('timer')
 globals.assets = require('assets')
+globals.conf = require('conf')
 
 globals.scaleMouse = function (x, y)
     return (x - globals.view.x) / globals.view.scale,
