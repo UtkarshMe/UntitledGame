@@ -28,14 +28,21 @@ function view:load(width, height, props)
             width = 0,
             height = 0,
         },
+        padding = {
+            x = 10,
+            y = 10,
+        },
         user = {
             animate = animate:new({ speed = 5, factor = 2 }),
         },
     }
     self.mapPeak.width = self.mapPeak.tiles.x * globals.assets.tile.width
+            + self.mapPeak.padding.x
     self.mapPeak.height = self.mapPeak.tiles.y * globals.assets.tile.height
-    self.mapPeak.canvas = love.graphics.newCanvas(self.mapPeak.width,
-            self.mapPeak.height)
+            + self.mapPeak.padding.y
+    self.mapPeak.canvas = love.graphics.newCanvas(self.mapPeak.width
+            - self.mapPeak.padding.x,
+            self.mapPeak.height - self.mapPeak.padding.y)
 
     self.story = {
         x = self.mapPeak.x + self.mapPeak.width,
@@ -277,9 +284,12 @@ function view:draw()
     love.graphics.setColor(1, 1, 1, 1)
 
     -- map peak
-    love.graphics.draw(self.mapPeak.canvas, self.mapPeak.x, self.mapPeak.y)
+    love.graphics.draw(self.mapPeak.canvas,
+            self.mapPeak.x + self.mapPeak.padding.x,
+            self.mapPeak.y + self.mapPeak.padding.y)
     self.mapPeak.user.animate:jump(globals.assets.images.user.tile,
-            userOnMap.x, userOnMap.y)
+            userOnMap.x + self.mapPeak.padding.x,
+            userOnMap.y + self.mapPeak.padding.y)
 
     -- story
     love.graphics.printf(self.story.animate:teletype(self.story.text),
