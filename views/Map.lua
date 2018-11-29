@@ -52,6 +52,7 @@ function view:load(width, height, props)
         align = 'left',
         canvas = love.graphics.newCanvas(),
         text = 'story not found',
+        font = globals.assets.fonts.story,
         animate = animate:new({ speed = 10, loop = false }),
         padding = {
             x = 20,
@@ -94,7 +95,7 @@ function view:load(width, height, props)
                 height = 5,
             },
             input = {
-                font = love.graphics.newFont(20),
+                font = globals.assets.fonts.console,
                 color = {
                     text = { 1, 1, 1, 1 },
                     cursor = { 0.7, 0.7, 0.7, 1 },
@@ -131,7 +132,7 @@ function view:load(width, height, props)
                 x = 10,
                 y = 10,
             },
-            font = love.graphics.newFont(25),
+            font = globals.assets.fonts.button,
             color = {
                 background = { 0.20, 0.20, 0.20, 1},
                 font =       { 0.80, 0.80, 0.80, 1 },
@@ -301,6 +302,7 @@ function view:draw()
             userOnMap.y + self.mapPeak.padding.y)
 
     -- story
+    love.graphics.setFont(self.story.font)
     love.graphics.printf(self.story.animate:teletype(self.story.text),
             self.story.x + self.story.padding.x,
             self.story.y + self.story.padding.y,

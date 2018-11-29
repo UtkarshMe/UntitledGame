@@ -4,10 +4,13 @@ local log = require('log')
 local assets = {
     images = {},
     sounds = {},
+    fonts = {},
 }
 
 function assets.load()
     log.debug('assets.init: loading tilesets')
+
+    -- tileset stuff here
 
     local tileset = {
         terrain = love.graphics.newImage('assets/images/terrain_atlas.png'),
@@ -67,6 +70,18 @@ function assets.load()
         love.graphics.setCanvas()
         assets.images[id].tile = canvas
     end
+
+
+    -- fonts stuff here
+    assets.fonts = {
+        default = love.graphics.newFont('assets/fonts/gravity.ttf', 20),
+        console = love.graphics.newFont('assets/fonts/monogram.ttf', 40),
+        story = love.graphics.newFont('assets/fonts/gravity.ttf', 17),
+        menu = love.graphics.newFont('assets/fonts/gravity.ttf', 16),
+        banner = love.graphics.newFont('assets/fonts/gravity.ttf', 50),
+        button = love.graphics.newFont('assets/fonts/gravity.ttf', 20),
+    }
+
 end
 
 return assets
