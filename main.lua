@@ -43,11 +43,7 @@ function love.update(timeSinceUpdate)
 end
 
 function love.keypressed(key, unicode)
-    if key == "escape" then
-        love.event.quit()
-    else
-        game.event.push('keyinput', { key, unicode })
-    end
+    game.event.push('keyinput', { key, unicode })
 end
 
 function love.textinput(text)
