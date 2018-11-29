@@ -82,6 +82,25 @@ function assets.load()
         button = love.graphics.newFont('assets/fonts/gravity.ttf', 20),
     }
 
+
+    -- sounds stuff here
+    assets.sounds = {
+        key = love.audio.newSource('assets/sounds/key.ogg', 'static'),
+        click = love.audio.newSource('assets/sounds/click.ogg', 'static'),
+        step = love.audio.newSource('assets/sounds/step.ogg', 'static'),
+        win = love.audio.newSource('assets/sounds/win.ogg', 'static'),
+        lose = love.audio.newSource('assets/sounds/lose.ogg', 'static'),
+        message = love.audio.newSource('assets/sounds/message.ogg', 'static'),
+        loops = {
+            start = love.audio.newSource('assets/sounds/loop1.wav', 'stream'),
+            game = love.audio.newSource('assets/sounds/loop2.wav', 'stream'),
+            run = love.audio.newSource('assets/sounds/loop2.wav', 'stream'),
+        }
+    }
+
+    assets.sounds.loops.start:setLooping(true)
+    assets.sounds.loops.game:setLooping(true)
+
 end
 
 return assets
