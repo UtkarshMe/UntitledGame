@@ -75,6 +75,8 @@ end
 
 function game.event.handlers.startGame()
     log.debug('game.startGame: starting new game: ' .. game.maps.current())
+    love.audio.stop(globals.assets.sounds.loops.start)
+    love.audio.play(globals.assets.sounds.loops.game)
     game.models.Map:load(game.maps.current())
     game.views.Map:update()
     animate.reset()
@@ -85,9 +87,11 @@ function game.event.handlers.endGame(args)
     log.debug('game.endGame: we ' .. args[1])
     globals.timer.stop('map')
     if args[1] == 'win' then
+        love.audio.play(globals.assets.sounds.win)
         game.event.push('nextMap')
         game.event.push('startGame')
     else
+        love.audio.play(globals.assets.sounds.lose)
         game.models.Map:reset()
         game.views.Map:update()
     end
@@ -129,6 +133,7 @@ function game.load()
 
     animate.reset()
     game.state:push('Menu')
+    love.audio.play(globals.assets.sounds.loops.start)
 
     globals.timer.track('map')
 end

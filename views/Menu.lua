@@ -55,6 +55,7 @@ function view:load(width, height, props)
         local x, y = unpack(args)
         for i,item in ipairs(self.menu.items.data) do
             if util.is_over({ x = x, y = y }, item) then
+                love.audio.play(globals.assets.sounds.click)
                 self._parent.items[i]:getTarget()()
             end
         end

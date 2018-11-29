@@ -242,6 +242,7 @@ function view:load(width, height, props)
         }
         for _,button in pairs(self.console.buttons.data) do
             if util.is_over({ x = x, y = y }, button, offset) then
+                love.audio.play(globals.assets.sounds.click)
                 button.callback()
                 break
             end

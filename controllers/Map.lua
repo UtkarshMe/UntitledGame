@@ -11,6 +11,7 @@ function controller.submit(model)
 end
 
 function controller.scriptError(model)
+    love.audio.play(globals.assets.sounds.message)
     model.console:setError('Error in script')
 end
 
@@ -74,6 +75,7 @@ function controller.step(model)
     end
     if command then
         log.debug('Map.step: ' .. command.value)
+        love.audio.play(globals.assets.sounds.step)
         controller.execute(model, { command })
     else
         log.debug('Map.step: End of script')
@@ -120,6 +122,8 @@ function controller.keyinput(model, args)
     elseif key == 'return' then
         model.console:appendValue('\n')
     end
+
+    love.audio.play(globals.assets.sounds.key)
 end
 
 function controller.textinput(model, args)
