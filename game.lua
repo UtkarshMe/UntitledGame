@@ -133,6 +133,7 @@ function game.load()
         log.debug('Menu: quit')
         love.event.quit()  -- TODO
     end)
+    game.models.Menu:setHighlighted(1)
 
     local width, height = love.graphics.getPixelDimensions()
     game.views.Menu:load(width, height)

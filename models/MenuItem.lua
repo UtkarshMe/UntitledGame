@@ -7,6 +7,7 @@ function model:new(label, target)
     local obj = {
         label = label,
         target = target,
+        isHighlighted = false,
     }
 
     self.__index = self

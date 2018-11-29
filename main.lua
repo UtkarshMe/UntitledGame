@@ -3,6 +3,11 @@ globals.logLevel = 'debug'
 globals.timer = require('timer')
 globals.assets = require('assets')
 
+globals.scaleMouse = function (x, y)
+    return (x - globals.view.x) / globals.view.scale,
+        (y - globals.view.y) / globals.view.scale
+end
+
 local game = require('game'); globals.game = game
 
 -- Function to initialize game state
@@ -49,8 +54,7 @@ function love.textinput(text)
 end
 
 function love.mousepressed(x, y, button)
-    x = (x - globals.view.x) / globals.view.scale
-    y = (y - globals.view.y) / globals.view.scale
+    x, y = globals.scaleMouse(x, y)
     game.event.push('mousepress', { x, y, button })
 end
 
