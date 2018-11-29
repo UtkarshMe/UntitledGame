@@ -119,6 +119,12 @@ function view:load(width, height, props)
                         globals.game.event.push('update', { '' })
                     end
                 },
+                {
+                    label = 'Quit',
+                    callback = function()
+                        love.event.quit()
+                    end
+                },
             },
             margin = {
                 x = 10,
