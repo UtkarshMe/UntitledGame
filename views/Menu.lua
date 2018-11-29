@@ -1,5 +1,6 @@
 -- views/Menu.lua : View for Menu model
 
+local animate = require('animate')
 local util = require('views.util')
 local View = require('views.View')
 local MenuItem = require('views.MenuItem')
@@ -32,6 +33,7 @@ function view:load(width, height, props)
                 y = 0,
             },
             data = {},
+            activate = animate:new()
         }
     }
 
@@ -55,6 +57,7 @@ function view:load(width, height, props)
         local x, y = unpack(args)
         for i,item in ipairs(self.menu.items.data) do
             if util.is_over({ x = x, y = y }, item) then
+                self.menu.items.activate:blink(item)
                 self._parent.items[i]:getTarget()()
             end
         end

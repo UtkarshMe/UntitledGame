@@ -6,6 +6,8 @@ animate.timer = 'animateTimer'
 globals.timer.track(animate.timer)
 globals.timer.start(animate.timer)
 
+local emptyDrawable = love.graphics.newCanvas(1, 1)
+
 local function parseOptions(options)
     if not options then
         options = {}
@@ -81,6 +83,16 @@ function animate:teletype(text)
     self.options.frames = string.len(text) + 1
     local frame = getFrame(self)
     return string.sub(text, 1, frame - 1)
+end
+
+function animate:blink(drawable)
+    local frame = getFrame(self)
+
+    if frame == 1 then
+        return emptyDrawable
+    else
+        return drawable
+    end
 end
 
 return animate
