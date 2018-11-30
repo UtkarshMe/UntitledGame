@@ -25,6 +25,10 @@ function Stack:top()
     return self._stack[#self._stack]
 end
 
+function Stack:prev()
+    return self._stack[#self._stack - 1]
+end
+
 function Stack:empty()
     self._stack = {}
 end

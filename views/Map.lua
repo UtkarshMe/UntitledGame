@@ -124,10 +124,10 @@ function view:load(width, height, props)
                     end
                 },
                 {
-                    label = 'Quit',
+                    label = 'Menu',
                     callback = function()
-                        self._parent.console:setMessage()
-                        globals.game.state:push('Menu')
+                        --self._parent.console:setMessage()
+                        globals.game.state:push('PauseMenu')
                     end
                 },
             },
