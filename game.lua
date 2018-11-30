@@ -80,6 +80,7 @@ function game.event.handlers.startGame()
     love.audio.play(globals.assets.sounds.loops.game)
     game.event.push('resetGame')
     game.models.Map.console:updateValue('')
+    game.views.Map:reset()
     animate.reset()
     game.state:push('Map')
 end

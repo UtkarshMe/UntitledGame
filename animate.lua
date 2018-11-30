@@ -83,4 +83,8 @@ function animate:teletype(text)
     return string.sub(text, 1, frame - 1)
 end
 
+function animate:replay()
+    self.animating = true
+end
+
 return animate

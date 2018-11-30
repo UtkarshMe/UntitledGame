@@ -269,6 +269,10 @@ function view:load(width, height, props)
     love.keyboard.setKeyRepeat(true)  -- allow pressing down keys
 end
 
+function view:reset()
+    self.story.animate:replay()
+end
+
 function view:update()
     local size = self._parent:getSize()
     local user = self._parent:getPosition('user')
