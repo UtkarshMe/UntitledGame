@@ -12,14 +12,9 @@ local function table_has(table, value)
     return false
 end
 
-function model:load(mapName)
-    self.mapName = mapName
-    self.map = dofile('data/maps/' .. mapName .. '.lua')
+function model:load(map)
+    self.map = map
     self.map.positions.user = {unpack(self.map.positions.start)}
-end
-
-function model:reset()
-    self:load(self.mapName)
 end
 
 function model:getSize()

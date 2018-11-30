@@ -3,9 +3,6 @@
 local log = require('log')
 local animate = require('animate')
 local util = require('util')
-local maps = {
-    'forward',
-}
 
 local game = {
     state = require('lib.Stack'):new(),
@@ -19,6 +16,9 @@ local game = {
     },
     maps = {
         _current = 1,
+        names = {
+            'forward',
+        },
     },
     script = {
         raw = '',
@@ -35,7 +35,7 @@ function game.event.add(stateName, event, cb)
 end
 
 function game.maps.current()
-    return maps[game.maps._current]
+    return game.maps.names[game.maps._current]
 end
 
 function game.event.push(event, args)
@@ -46,7 +46,7 @@ end
 
 function game.event.handlers.nextMap()
     local current = game.maps._current + 1
-    if maps[current] then
+    if game.maps.names[current] then
         game.maps._current = current
     else
         love.event.quit()
@@ -77,9 +77,8 @@ function game.event.handlers.startGame()
     log.debug('game.startGame: starting new game: ' .. game.maps.current())
     love.audio.stop(globals.assets.sounds.loops.start)
     love.audio.play(globals.assets.sounds.loops.game)
-    game.models.Map:load(game.maps.current())
+    game.event.push('resetGame')
     game.models.Map.console:updateValue('')
-    game.views.Map:update()
     animate.reset()
     game.state:push('Map')
 end
@@ -93,9 +92,17 @@ function game.event.handlers.endGame(args)
         game.event.push('startGame')
     else
         love.audio.play(globals.assets.sounds.lose)
-        game.models.Map:reset()
-        game.views.Map:update()
+        game.event.push('resetGame')
     end
+end
+
+function game.event.handlers.resetGame()
+    game.maps[game.maps.current()] = assert(
+            love.filesystem.load(
+                'data/maps/' .. game.maps.current() .. '.lua'
+            ))()
+    game.models.Map:load(game.maps[game.maps.current()])
+    game.views.Map:update()
 end
 
 function game.loadComponent(component)

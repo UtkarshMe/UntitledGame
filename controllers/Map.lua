@@ -5,7 +5,7 @@ local default = require('controllers.Default')
 local controller = { name = 'Map' }
 
 function controller.submit(model)
-    globals.game.models.Map:reset()
+    globals.game.event.push('resetGame')
     globals.game.event.push('scriptSubmit', { model.console:getValue() })
 end
 
