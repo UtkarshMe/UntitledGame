@@ -107,14 +107,18 @@ function game.event.handlers.resetGame()
     game.views.Map:update()
 end
 
-function game.loadComponent(component)
-    log.debug('game.loadComponent: ' .. component)
-    local model = require('models.' .. component):new({ name = component })
-    game.models[component] = model
-    game.views[component] = require('views.' .. component):new(model)
-    game.controllers[component] = require('controllers.' .. component)
-    game.event.handlers[component] = util.newEventHandler(
-            game.controllers[component], model)
+function game.loadComponent(component, nameAs)
+    if not nameAs then
+        nameAs = component
+    end
+    log.debug('game.loadComponent: ' .. nameAs)
+
+    local model = require('models.' .. component):new({ name = nameAs })
+    game.models[nameAs] = model
+    game.views[nameAs] = require('views.' .. component):new(model)
+    game.controllers[nameAs] = require('controllers.' .. component)
+    game.event.handlers[nameAs] = util.newEventHandler(
+            game.controllers[nameAs], model)
 end
 
 function game.animateMap(callback)
@@ -125,6 +129,7 @@ end
 function game.load()
     game.loadComponent('Menu')
     game.loadComponent('Map')
+    game.loadComponent('Menu', 'PauseMenu')
 
     game.models.Menu:addItem('Start', function()
         log.debug('Menu: new game')
@@ -136,6 +141,21 @@ function game.load()
         love.event.quit()  -- TODO
     end)
     game.models.Menu:setHighlighted(1)
+
+    game.models.PauseMenu:addItem('Resume', function()
+        log.debug('PauseMenu: resume')
+        game.state:pop()
+    end)
+    game.models.PauseMenu:addItem('Restart', function()
+        log.debug('PauseMenu: new game')
+        game.event.push('resetMap')
+        game.event.push('startGame')
+    end)
+    game.models.PauseMenu:addItem('Quit', function()
+        log.debug('PauseMenu: quit')
+        love.event.quit()  -- TODO
+    end)
+    game.models.PauseMenu:setHighlighted(1)
 
     local width, height = love.graphics.getPixelDimensions()
     game.views.Menu:load(width, height)
