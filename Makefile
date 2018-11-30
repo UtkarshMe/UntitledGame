@@ -1,4 +1,4 @@
-PROJECT_NAME    = UntitledGame
+PROJECT_NAME    = WRT
 SOURCES         = main.lua \
                   conf.lua \
                   game.lua \

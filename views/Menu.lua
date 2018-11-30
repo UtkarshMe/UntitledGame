@@ -14,13 +14,26 @@ function view:load(width, height, props)
         width = 400,
         height = 400,
         banner = {
-            text = globals.conf.getMeta().name,
+            text = {
+                { 1, 0, 0, 1 }, 'W',
+                { 1, 1, 1, 1 }, 'rite.\n',
+                { 1, 0, 0, 1 }, 'R',
+                { 1, 1, 1, 1 }, 'un.  \n',
+                { 1, 0, 0, 1 }, 'T',
+                { 1, 1, 1, 1 }, 'weak.\n',
+            },
+            subtext = {
+                text = { { 0.60, 0.60, 0.60, 1 }, 'repeat\n' },
+                font = globals.assets.fonts.default,
+                x = self.width * 0.60,
+                y = 250,
+            },
             color = { 1, 1, 1, 1 },
             font = globals.assets.fonts.banner,
             x = 0,
-            y = 100,
+            y = 50,
             width = self.width,
-            height = 200,
+            height = 300,
         },
         items = {
             x = 100,
@@ -36,7 +49,10 @@ function view:load(width, height, props)
     }
 
     self.menu.x = math.floor((self.width - self.menu.width) / 2)
-    self.menu.y = math.floor((self.height - self.menu.height) / 2)
+    self.menu.y = math.floor((self.height - self.menu.banner.height
+                - self.menu.height) / 2
+            )
+            + self.menu.banner.height
 
     for i,item in ipairs(self._parent.items) do
         item.view = MenuItem:new(item)
@@ -69,6 +85,9 @@ function view:load(width, height, props)
         love.graphics.setFont(self.menu.banner.font)
         love.graphics.printf(self.menu.banner.text, self.menu.banner.x,
                 self.menu.banner.y, self.menu.banner.width, 'center')
+        love.graphics.setFont(self.menu.banner.subtext.font)
+        love.graphics.print(self.menu.banner.subtext.text,
+                self.menu.banner.subtext.x, self.menu.banner.subtext.y)
     love.graphics.setCanvas()
 end
 

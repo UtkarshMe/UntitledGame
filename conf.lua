@@ -9,7 +9,7 @@ local conf = {}
 
 function conf.getMeta()
     return {
-        name = 'Untitled Game',
+        name = 'WRT',
     }
 end
 

@@ -1,6 +1,6 @@
-## Untitled game in Lua with Love `#GitHubGameOff`
-[![Build Status](https://travis-ci.org/UtkarshMe/UntitledGame.svg?branch=master)](https://travis-ci.org/UtkarshMe/UntitledGame)
-[![codecov](https://codecov.io/gh/UtkarshMe/UntitledGame/branch/master/graph/badge.svg)](https://codecov.io/gh/UtkarshMe/UntitledGame)
+## Write. Run. Tweak. (WRT) `#GitHubGameOff`
+[![Build Status](https://travis-ci.org/UtkarshMe/WRT.svg?branch=master)](https://travis-ci.org/UtkarshMe/WRT)
+[![codecov](https://codecov.io/gh/UtkarshMe/WRT/branch/master/graph/badge.svg)](https://codecov.io/gh/UtkarshMe/WRT)
 
 ### Shots!
 ![start screen](screenshots/start.png "Game Start Screen")
@@ -8,7 +8,7 @@
 
 ### Download
 The game is available to download for Windows or as source code from the
-[releases](https://github.com/UtkarshMe/UntitledGame/releases/latest) page.
+[releases](https://github.com/UtkarshMe/WRT/releases/latest) page.
 
 ### Dependencies
 - [Love2d](https://love2d.org/): as game engine
@@ -21,8 +21,8 @@ The game is available to download for Windows or as source code from the
 
 
 ### Documentation
-- code style guide: [`docs/style_guide.md`](https://github.com/UtkarshMe/UntitledGame/tree/master/docs/style_guide.md)
-- testing: [`docs/testing.md`](https://github.com/UtkarshMe/UntitledGame/tree/master/docs/testing.md)
+- code style guide: [`docs/style_guide.md`](https://github.com/UtkarshMe/WRT/tree/master/docs/style_guide.md)
+- testing: [`docs/testing.md`](https://github.com/UtkarshMe/WRT/tree/master/docs/testing.md)
 
 
 ### Build
