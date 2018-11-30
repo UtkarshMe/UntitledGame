@@ -75,7 +75,7 @@ function assets.load()
     -- fonts stuff here
     assets.fonts = {
         default = love.graphics.newFont('assets/fonts/gravity.ttf', 15),
-        console = love.graphics.newFont('assets/fonts/monogram.ttf', 40),
+        console = love.graphics.newFont('assets/fonts/monogram.ttf', 25),
         story = love.graphics.newFont('assets/fonts/gravity.ttf', 17),
         menu = love.graphics.newFont('assets/fonts/gravity.ttf', 16),
         banner = love.graphics.newFont('assets/fonts/gravity.ttf', 50),
