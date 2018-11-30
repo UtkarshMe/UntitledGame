@@ -18,6 +18,7 @@ local game = {
         _current = 1,
         names = {
             'forward',
+            'backward-left-right',
         },
     },
     script = {
