@@ -40,7 +40,12 @@ local Map = {
 
 
 
-hint: Type "forward" and click Run]],
+
+
+
+
+
+hint: Type "forward" and click Run. Or maybe 5?]],
 }
 
 -- example to add artifacts:
