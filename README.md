@@ -2,6 +2,10 @@
 [![Build Status](https://travis-ci.org/UtkarshMe/UntitledGame.svg?branch=master)](https://travis-ci.org/UtkarshMe/UntitledGame)
 [![codecov](https://codecov.io/gh/UtkarshMe/UntitledGame/branch/master/graph/badge.svg)](https://codecov.io/gh/UtkarshMe/UntitledGame)
 
+### Shots!
+![start screen](screenshots/start.png "Game Start Screen")
+![game screen](screenshots/game.png "Game Play Screen")
+
 ### Download
 The game is available to download for Windows or as source code from the
 [releases](https://github.com/UtkarshMe/UntitledGame/releases/latest) page.
