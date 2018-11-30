@@ -127,7 +127,7 @@ function view:load(width, height, props)
                     label = 'Quit',
                     callback = function()
                         self._parent.console:setMessage()
-                        globals.game.state:pop()
+                        globals.game.state:push('Menu')
                     end
                 },
             },
