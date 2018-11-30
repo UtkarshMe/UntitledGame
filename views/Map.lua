@@ -14,8 +14,8 @@ function view:load(width, height, props)
         x = 0,
         y = 0,
         tiles = {
-            x = 5,
-            y = 5,
+            x = 9,
+            y = 9,
             offset = {
                 x = 0,
                 y = 0,
@@ -274,8 +274,14 @@ function view:update()
     local user = self._parent:getPosition('user')
 
     self.mapPeak.tiles.offset = {
-        x = math.max(0, user[1] - math.floor(self.mapPeak.tiles.x / 2)),
-        y = math.max(0, user[2] - math.floor(self.mapPeak.tiles.y / 2)),
+        x = math.min(
+                math.max(1, user[1] - math.floor(self.mapPeak.tiles.x / 2)),
+                size.width - self.mapPeak.tiles.x + 1
+            ),
+        y = math.min(
+                math.max(1, user[2] - math.floor(self.mapPeak.tiles.y / 2)),
+                size.height - self.mapPeak.tiles.y + 1
+            ),
     }
 
     self.mapPeak.data.width = globals.assets.tile.width * size.width
@@ -283,6 +289,7 @@ function view:update()
 
     love.graphics.setColor(1, 1, 1, 1)
     love.graphics.setCanvas(self.mapPeak.canvas)
+        love.graphics.clear()
         for x=self.mapPeak.tiles.offset.x,size.width do
             for y=self.mapPeak.tiles.offset.y,size.height do
                 local tile = self._parent:getTile(x, y)

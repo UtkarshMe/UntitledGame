@@ -38,7 +38,6 @@ function controller.execute(model, args)
         local artifact = model:getArtifact(user[1], user[2] - 1)
         if artifact then
             model:setTile(user[1], user[2] - 1, artifact)
-            globals.game.views.Map:update()
         end
 
     elseif command.value == 'ifstart' then
@@ -65,6 +64,8 @@ function controller.execute(model, args)
     else
         globals.game.event.push('step')
     end
+
+    globals.game.views.Map:update()
 end
 
 function controller.step(model)
