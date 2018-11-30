@@ -31,9 +31,6 @@ local Map = {
         start = { 7, 6 },
         exit = { 7, 1 },
     },
-    commands = {
-        'forward',
-    },
     story =
 [[You gotta learn to move forward!
 

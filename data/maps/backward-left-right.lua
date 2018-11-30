@@ -31,9 +31,6 @@ local Map = {
         start = { 7, 6 },
         exit = { 7, 1 },
     },
-    commands = {
-        'forward',
-    },
     story =
 [[When it seems you can't go forward, try going "backward".
 
