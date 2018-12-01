@@ -50,8 +50,9 @@ function game.event.handlers.nextMap()
     local current = game.maps._current + 1
     if game.maps.names[current] then
         game.maps._current = current
+        game.event.push('startGame')
     else
-        love.event.quit()
+        game.state:push('Menu')
     end
 end
 
@@ -92,7 +93,6 @@ function game.event.handlers.endGame(args)
     if args[1] == 'win' then
         love.audio.play(globals.assets.sounds.win)
         game.event.push('nextMap')
-        game.event.push('startGame')
     else
         love.audio.play(globals.assets.sounds.lose)
         game.event.push('resetGame')
