@@ -2,13 +2,15 @@
 [![Build Status](https://travis-ci.org/UtkarshMe/WRT.svg?branch=master)](https://travis-ci.org/UtkarshMe/WRT)
 [![codecov](https://codecov.io/gh/UtkarshMe/WRT/branch/master/graph/badge.svg)](https://codecov.io/gh/UtkarshMe/WRT)
 
+### Download
+[![Itch.io](https://github.com/itchio/itch.io/raw/master/logos/badge2.png)](https://utkarshme.itch.io/write-run-tweak)
+
+The game is also available to download for Windows or as source code from the
+[releases](https://github.com/UtkarshMe/WRT/releases/latest) page.
+
 ### Shots!
 ![start screen](screenshots/start.png "Game Start Screen")
 ![game screen](screenshots/game.png "Game Play Screen")
-
-### Download
-The game is available to download for Windows or as source code from the
-[releases](https://github.com/UtkarshMe/WRT/releases/latest) page.
 
 ### Dependencies
 - [Love2d](https://love2d.org/): as game engine
