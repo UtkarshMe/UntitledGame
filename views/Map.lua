@@ -119,8 +119,8 @@ function view:load(width, height, props)
                 {
                     label = 'Reset',
                     callback = function()
-                        self._parent.console:setMessage()
-                        globals.game.event.push('update', { '' })
+                        self._parent.console:setMessage('Reset')
+                        globals.game.event.push('endGame', { 'stop' })
                     end
                 },
                 {

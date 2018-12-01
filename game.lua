@@ -95,8 +95,10 @@ function game.event.handlers.endGame(args)
     if args[1] == 'win' then
         love.audio.play(globals.assets.sounds.win)
         game.event.push('nextMap')
-    else
+    elseif args[1] == 'lose' then
         love.audio.play(globals.assets.sounds.lose)
+        game.event.push('resetGame')
+    else
         game.event.push('resetGame')
     end
 end
