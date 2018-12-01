@@ -52,6 +52,8 @@ function game.event.handlers.nextMap()
         game.maps._current = current
         game.event.push('startGame')
     else
+        love.audio.stop(globals.assets.sounds.loops.game)
+        love.audio.play(globals.assets.sounds.loops.start)
         game.state:push('Menu')
     end
 end

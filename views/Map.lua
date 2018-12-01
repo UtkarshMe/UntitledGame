@@ -127,6 +127,8 @@ function view:load(width, height, props)
                     label = 'Quit',
                     callback = function()
                         self._parent.console:setMessage()
+                        love.audio.stop(globals.assets.sounds.loops.game)
+                        love.audio.play(globals.assets.sounds.loops.start)
                         globals.game.state:push('Menu')
                     end
                 },
