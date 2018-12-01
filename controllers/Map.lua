@@ -76,6 +76,10 @@ function controller.execute(model, args)
 
     if model:isTileMovable(user[1], user[2]) then
         model:setPosition('user', user)
+        if model:getTile(user[1], user[2]) == 'tomato' then
+            model.console:setMessage('You just picked up some tomatoes!')
+            model:setTile(user[1], user[2], 'grass')
+        end
     else
         globals.game.event.push('step')
     end

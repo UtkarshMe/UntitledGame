@@ -52,6 +52,13 @@ function assets.load()
                 { 00, 00, 832, 1024 - 32, 32},  -- mushroom
             },
         },
+        tomato = {
+            tileset = tileset.terrain,
+            tiles = {
+                { 00, 00, 736, 160, 32 },  -- grass
+                { 00, 00, 384, 768, 32 },
+            }
+        },
     }
 
     for id,value in pairs(assets.images) do

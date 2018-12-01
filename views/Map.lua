@@ -299,8 +299,7 @@ function view:update()
         for x=self.mapPeak.tiles.offset.x,size.width do
             for y=self.mapPeak.tiles.offset.y,size.height do
                 local tile = self._parent:getTile(x, y)
-                local tileName = self._parent.map.components[tile]
-                love.graphics.draw(globals.assets.images[tileName].tile,
+                love.graphics.draw(globals.assets.images[tile].tile,
                         (x - self.mapPeak.tiles.offset.x)
                             * globals.assets.tile.width,
                         (y - self.mapPeak.tiles.offset.y)

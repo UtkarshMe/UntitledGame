@@ -20,6 +20,8 @@ local game = {
             'forward',
             'backward-left-right',
             'ifstart-ifexit',
+            'loop',
+            'open',
         },
     },
     script = {

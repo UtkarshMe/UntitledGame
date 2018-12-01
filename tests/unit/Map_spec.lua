@@ -21,13 +21,13 @@ describe('Map', function()
 
     it('allows getting and setting tile at position', function()
         local tile = map:getTile(1, 1)
-        assert.is_same(map:getComponent(tile), 'wall')
+        assert.is_same(tile, 'wall')
 
-        tile = 2
+        tile = 'grass'
         map:setTile(1, 1, tile)
         assert.is_same(map:getTile(1, 1), tile)
 
-        tile = 99
+        tile = 'nothing'
         assert.has_error(function()
             map:setTile(1, 1, tile)
         end)

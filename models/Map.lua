@@ -26,12 +26,13 @@ function model:getMap()
 end
 
 function model:getTile(x, y)
-    return self.map.data[y][x]
+    local shit = self.map.components[self.map.data[y][x]]
+    return shit
 end
 
 function model:setTile(x, y, tile)
-    if self:isTileOnMap(x, y) and self.map.components[tile] then
-        self.map.data[y][x] = tile
+    if self:isTileOnMap(x, y) and self:getComponentId(tile) then
+        self.map.data[y][x] = self:getComponentId(tile)
     else
         error('No component for tile id "' .. tile .. '"')
     end
@@ -45,14 +46,12 @@ end
 
 function model:isTileMovable(x, y)
     return (self:isTileOnMap(x, y)
-            and table_has({'grass', 'exit'},
-                    self:getComponent(self:getTile(x, y))))
+            and table_has({'grass', 'tomato', 'exit'}, self:getTile(x, y)))
 end
 
 function model:isTileBreakable(x, y)
     return (self:isTileOnMap(x, y)
-            and table_has({'box_closed'},
-                    self:getComponent(self:getTile(x, y))))
+            and table_has({'box_closed'}, self:getTile(x, y)))
 end
 
 function model:hasArtifact(x, y)
@@ -60,11 +59,11 @@ function model:hasArtifact(x, y)
 end
 
 function model:getArtifact(x, y)
-    if self:isTileOnMap(x, y) then
+    if self:isTileBreakable(x, y) then
         if self.map.artifacts[y] and self.map.artifacts[y][x] then
-            return self.map.artifacts[y][x]
+            return self:getComponent(self.map.artifacts[y][x])
         else
-            return self.map.artifacts.default
+            return self:getComponent(self.map.artifacts.default)
         end
     end
     return nil
@@ -72,6 +71,15 @@ end
 
 function model:getComponent(id)
     return self.map.components[id]
+end
+
+function model:getComponentId(thing)
+    for id,component in ipairs(self.map.components) do
+        if component == thing then
+            return id
+        end
+    end
+    return nil
 end
 
 function model:getPosition(thing)
