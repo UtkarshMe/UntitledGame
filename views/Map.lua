@@ -337,7 +337,7 @@ function view:draw()
     love.graphics.printf(self.story.animate:teletype(self.story.text),
             self.story.x + self.story.padding.x,
             self.story.y + self.story.padding.y,
-            self.story.width, self.story.align)
+            self.story.width - 2 * self.story.padding.x, self.story.align)
 
     -- console
     love.graphics.setColor(1, 1, 1, 1)
