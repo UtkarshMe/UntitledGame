@@ -29,4 +29,3 @@ deploy:
     overwrite: true
     on:
         tags: true
-    draft: true
