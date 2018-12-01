@@ -19,6 +19,7 @@ local game = {
         names = {
             'forward',
             'backward-left-right',
+            'ifstart-ifexit',
         },
     },
     script = {
