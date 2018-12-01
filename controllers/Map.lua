@@ -34,7 +34,7 @@ function controller.execute(model, args)
     elseif command.value == 'right' then
         user[1] = user[1] + 1
 
-    elseif command.value == 'strike' then
+    elseif command.value == 'open' then
         local artifact = model:getArtifact(user[1], user[2] - 1)
         if artifact then
             model:setTile(user[1], user[2] - 1, artifact)
@@ -53,9 +53,24 @@ function controller.execute(model, args)
             globals.game.event.push('step')
             return
         end
+    elseif command.value == 'ifexit' then
+        local exit = model:getPosition('exit')
+        if exit[1] == user[1] and exit[2] == user[2] then
+            log.debug('setCommand then')
+            globals.game.script.parsed.setCommand(command.thenBranch)
+            globals.game.event.push('step')
+            return
+        else
+            log.debug('setCommand else')
+            globals.game.script.parsed.setCommand(command.elseBranch)
+            globals.game.event.push('step')
+            return
+        end
     elseif command.value == 'then'
             or command.value == 'else'
-            or command.value == 'endif' then
+            or command.value == 'endif'
+            or command.value == 'break'
+            or command.value == 'endloop' then
         globals.game.event.push('step')
     end
 

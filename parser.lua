@@ -23,6 +23,7 @@ local function parse(rawScript)
     local command = nil
     local nextToken = string.gmatch(rawScript or '', "[%a_]+")
     local ifStack = Stack:new()
+    local loopStack = Stack:new()
 
     while true do
         local token = nextToken()
@@ -30,7 +31,7 @@ local function parse(rawScript)
             break
         end
 
-        if table_has({ 'forward', 'backward', 'left', 'right', 'strike' },
+        if table_has({ 'forward', 'backward', 'left', 'right', 'open' },
                 token) then
             command = newCommand(token, command)
             commands[current] = command
@@ -72,8 +73,41 @@ local function parse(rawScript)
                 return nil
             end
             ifStack:pop()
-            command.next = ifcond.exit
+            if command then
+                command.next = ifcond.exit
+            end
             command = ifcond.exit
+
+        elseif token == 'loop' then
+            command = newCommand(token, command)
+            commands[current] = command
+            current = current + 1
+            loopStack:push(command)
+            command.exit = newCommand('endloop', nil)
+            commands[current] = command.exit
+            current = current + 1
+
+        elseif token == 'endloop' then
+            local loop = loopStack:top()
+            if not loop then
+                return nil
+            end
+            if command then
+                command.next = loop
+            end
+            command = loop.exit
+            loopStack:pop()
+
+        elseif token == 'break' then
+            local loop = loopStack:top()
+            if not loop then
+                return nil
+            end
+            command = newCommand(token, command)
+            commands[current] = command
+            current = current + 1
+            command.next = loop.exit
+            command = nil
 
         else -- unknown token
             return nil
